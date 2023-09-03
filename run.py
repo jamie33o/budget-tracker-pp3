@@ -1,4 +1,5 @@
-from print_input_effects import slow_print_effect
+from print_input import slow_print_effect
+from questions import menu
 
 LOGO = """
                          /$$$$$$$                  /$$                       /$$           /$$$$$$$$                 /$$
@@ -21,9 +22,9 @@ def welcome_screen():
     """
     Print logo.
     """
-    slow_print_effect(f"\033[34m{LOGO}\033[0m",0.01)# ANSI escape codes to change the text color
-    slow_print_effect("Welcome to Budget Trainer in this game you will train your memory to remember your budget and keep track of it")
-   
+    slow_print_effect(f"\033[34m{LOGO}\033[0m",0.005)# ANSI escape codes to change the text color
+    slow_print_effect("Welcome to Budget Trainer in this game you will train your memory to remember your budget and keep track of it\n")
+    
 
 
 welcome_screen()
