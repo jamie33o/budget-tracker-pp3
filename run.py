@@ -1,5 +1,6 @@
 from print_input import slow_print_effect
-from questions import menu
+from google_sheets import register
+
 
 LOGO = """
                          /$$$$$$$                  /$$                       /$$           /$$$$$$$$                 /$$
@@ -18,13 +19,13 @@ LOGO = """
 
 
 
-def welcome_screen():
+def main():
     """
     Print logo.
     """
     slow_print_effect(f"\033[34m{LOGO}\033[0m",0.005)# ANSI escape codes to change the text color
     slow_print_effect("Welcome to Budget Trainer in this game you will train your memory to remember your budget and keep track of it\n")
-    
+    register()
 
-
-welcome_screen()
+if __name__ == '__main__':
+    main()
