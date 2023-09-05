@@ -21,7 +21,7 @@ try:
     SCOPED_CREDS = CREDS.with_scopes(SCOPE)
     GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
     # open the google sheets for budget trainer
-    SHEET = GSPREAD_CLIENT.open("budget-trainer")
+    SHEET = GSPREAD_CLIENT.open("budget-tracker")
 
     # get the income sheet
     INCOME_WORKSHEET = SHEET.worksheet("income")
@@ -51,11 +51,26 @@ def search_woksheet(USERNAME):
     user_row = EXPENSES_WORKSHEET.row_values(matching_cell.row)
     return user_row
 
-def change_usrname(USERNAME,NEW_USERNAME):
-    matching_cells = EXPENSES_WORKSHEET.findall(USERNAME, in_column=1)
-    # Update the username in the same row with the new username
-    for cell in matching_cells:
-        EXPENSES_WORKSHEET.update(cell, NEW_USERNAME)
+def change_username(USERNAME,NEW_USERNAME):
+    try:
+        matching_cell = INCOME_WORKSHEET.find(NEW_USERNAME, in_column=1)
+        if matching_cell:
+            print("Please choose a different username")
+            return False
+        else:
+            matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
+            INCOME_WORKSHEET.update(matching_cell.address, NEW_USERNAME)
+
+            matching_cells = EXPENSES_WORKSHEET.findall(USERNAME, in_column=1)
+
+            # Update the username at each cell address
+            for cell in matching_cells:
+                EXPENSES_WORKSHEET.update_acell(cell.address, NEW_USERNAME)
+            return True
+    except FileNotFoundError: 
+        print("Error: please try again")
+    except Exception as e:
+        print(f"An error occurred: please try again")
 
 
 def register():
@@ -65,7 +80,9 @@ def register():
     all_usernames = INCOME_WORKSHEET.col_values(1)
     BUDGET = input_validator("number", "Please Enter Your Budget: \n")
     while True:
-        USERNAME = input_validator("username","please enter username?")
+        USERNAME = input_validator("username",""" Please enter username,
+            \n if you have used this website before please use the same username...
+            \nIt must be 5 to 10 characters long""")
 
         if USERNAME in all_usernames:
             slow_print_effect(f"\033[34mPlease enter different username between 4 - 10 characters long!!\033[0m",0.005)    
@@ -80,7 +97,12 @@ def register():
 
 
 def change_budget(USERNAME,NEW_BUDGET):
-    matching_cell = EXPENSES_WORKSHEET.find(USERNAME, in_column=1)
-    # Update the username in the same row with the new username
+    matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
+    # Define the target column index (2 for column B)
+    target_column_index = "B"
+    # Calculate the A1 notation for the cell in the same row but in the target column
+    target_cell_a1 = f"{target_column_index}{matching_cell.row}"
 
-    INCOME_WORKSHEET.update(matching_cell, NEW_USERNAME)
+    # Update the username in the same row with the new username
+    INCOME_WORKSHEET.update_acell(target_cell_a1,NEW_BUDGET)
+
