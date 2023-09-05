@@ -1,6 +1,11 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from print_input import input_validator,slow_print_effect
+from questions import questions
+from datetime import datetime
+
+
+
 
 # sets what im authorized to use with google cloud services
 SCOPE = [
@@ -29,9 +34,13 @@ except Exception as e:
     print(f"An error occurred: please refresh the browser")
 
 
-def store_expenses(book):
-     # Insert book to google sheets row
-    EXPENSES_WORKSHEET.insert_row(book)
+def add_expenses(date,prices_dict):
+    prices_list = list(prices_dict.values())
+    if date:
+        search_woksheet(date)
+    # Insert prices list to google sheets row
+    EXPENSES_WORKSHEET.insert_row(prices_list)
+
 
 def store_Income(price):
     INCOME_WORKSHEET.insert_rows(price)
@@ -41,6 +50,12 @@ def search_woksheet(USERNAME):
     matching_cell = EXPENSES_WORKSHEET.find(USERNAME, in_column=1)
     user_row = EXPENSES_WORKSHEET.row_values(matching_cell.row)
     return user_row
+
+def change_usrname(USERNAME,NEW_USERNAME):
+    matching_cells = EXPENSES_WORKSHEET.findall(USERNAME, in_column=1)
+    # Update the username in the same row with the new username
+    for cell in matching_cells:
+        EXPENSES_WORKSHEET.update(cell, NEW_USERNAME)
 
 
 def register():
@@ -64,3 +79,8 @@ def register():
 
 
 
+def change_budget(USERNAME,NEW_BUDGET):
+    matching_cell = EXPENSES_WORKSHEET.find(USERNAME, in_column=1)
+    # Update the username in the same row with the new username
+
+    INCOME_WORKSHEET.update(matching_cell, NEW_USERNAME)
