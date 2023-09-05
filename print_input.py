@@ -33,9 +33,11 @@ def input_validator(expected_type, input_text):
                     break  # Exit the loop if the input is a valid integer
                 except ValueError:
                     slow_print_effect("Wrong input! Please enter a whole number.")
-    elif expected_type == "word": 
+    elif expected_type == "username": 
         while True:
-            input_value = input(f"\n {input_text}\n")
+            input_value = input(f"""\n Please enter username,
+            \n if you have used this website before please use the same username...
+            \nIt must be 5 to 10 characters long\n""")
             if len(input_value) in range(5,11):
                     clear_terminal()
                     break  # Exit the loop if the input is a valid string
