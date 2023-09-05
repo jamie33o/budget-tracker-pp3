@@ -1,10 +1,14 @@
 from print_input import slow_print_effect,input_validator
+from datetime import datetime
 
 
-def questions():
-
+def questions(USERNAME):
+    """prints the questions in the dictionary based on user input and then takes the number input """
+    current_date = datetime.now().date()
 
     prices = {# dictionary matching google sheets expenses work sheet
+         "username": USERNAME,
+         "date": current_date,
          "work-commute": 0,
          "work-lunch": 0,
          "kids-commute": 0,
@@ -18,7 +22,7 @@ def questions():
     }
 
 
-    questions_dict = { # dictionary with questions
+    questions_dict = { # dictionary with the questions
         "Did you Work Today?": {"work-commute": "How much was your commute to work and home?", "work-lunch": "How much did you spend on lunch?"},
         "Did your kids go to school today?": {"kids-commute": "How much is there commute to school and home?", "kids-lunch": "How much did lunch's cost?"} ,
         "Did you go to school today?":{"adult-school-commute": "How much is your commute to school and home?", "adult-school-lunch":  "How much did lunch's cost?"} ,
@@ -30,19 +34,20 @@ def questions():
 
 
     for dict_key, dict_value in questions_dict.items():
+         # goes through question's in the dictionary depending on user input and ask for cost as input and adds it to the prices dictionary
         slow_print_effect(dict_key)
-        ans = input_validator("str")
+        ans = input_validator("letter","Type Y for yes and N for No (Y/N):")
         if ans == "Y":
             if dict_value.items():
                 for key, value in dict_value.items():
                         slow_print_effect(value)
-                        cost = input_validator("number")
+                        cost = input_validator("number","Enter the cost as a whole number: ")
                         prices[key] = cost
             else:
                 keys = list(dict_value.keys())  # Convert keys to a list
                 key = keys[0]  # Access the first (and only) key in the list
                 slow_print_effect(dict_value[key])
-                cost = input_validator("number")
+                cost = input_validator("number","Enter the cost as a whole number:" )
                 prices[key] = cost
 
 
