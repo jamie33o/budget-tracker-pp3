@@ -24,11 +24,16 @@ def menu(USERNAME):
 
 
     if choice == 1:
-        NEW_USERNAME = input_validator("username")
-        change_usrname(USERNAME,NEW_USERNAME)
+        while True:
+            NEW_USERNAME = input_validator("username",""" Please enter your new username,
+                \nIt must be 5 to 10 characters long""")
+            username_changed = change_username(USERNAME,NEW_USERNAME)
+            if username_changed:
+                break
+
     elif choice == 2:
-        NEW_BUDGET = input_validator("number", "Please enter your new budget:")
-        change_budget(USERNAME ,NEW_BUDGET) 
+            NEW_BUDGET = input_validator("number", "Please enter your new budget:")
+            change_budget(USERNAME ,NEW_BUDGET) 
     elif choice == 3:
         prices_dict = questions(USERNAME)
         add_expenses(prices_dict)
@@ -42,4 +47,3 @@ def menu(USERNAME):
         pass
     elif choice == 8:
         pass
-
