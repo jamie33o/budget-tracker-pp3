@@ -1,7 +1,7 @@
 import sys  # System-specific parameters and functions
 import time  # provides functions for handling time-related tasks
 import os
-
+import re
 
 
 def slow_print_effect(text, delay=0.04):
@@ -21,7 +21,8 @@ def input_validator(expected_type, input_text):
     if expected_type == "letter":
         while True:
                 input_value = input(f"\n {input_text}\n")
-                if input_value.upper() in ["Y", "N"]:
+                input_value = input_value.upper()
+                if input_value in ["Y", "N"]:
                        clear_terminal()
                        break  # Exit the loop if the input is a valid string
                 else: 
@@ -35,15 +36,26 @@ def input_validator(expected_type, input_text):
                     slow_print_effect("Wrong input! Please enter a whole number.")
     elif expected_type == "username": 
         while True:
-            input_value = input(f"""\n Please enter username,
-            \n if you have used this website before please use the same username...
-            \nIt must be 5 to 10 characters long\n""")
+            input_value = input(f"\n{input_text}\n")
             if len(input_value) in range(5,11):
                     clear_terminal()
                     break  # Exit the loop if the input is a valid string
             else: 
                 slow_print_effect("Wrong input! Please enter text.")
+    elif expected_type == "date":
+        while True:
+            # Define the regular expression pattern for ISO date format (YYYY-MM-DD)
+            iso_date_pattern = r'^\d{4}-\d{2}-\d{2}$'
+            input_value = input(f"\n{input_text}\n")
+            # Check if the input matches the ISO date pattern
+            if re.match(iso_date_pattern, input_value):
+                break  # Input doesn't match the ISO format
+            else: 
+                slow_print_effect("Wrong input! Please enter date as YYYY-MM-DD.")
     return input_value
+
+
+
 
 
 def clear_terminal():
