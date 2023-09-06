@@ -5,16 +5,16 @@ from google_sheets import *
 
 
 def menu(USERNAME):
+    
+    register(USERNAME)
    
     menu_options = [
         ["\033[30m" , "***Budget Tracker Menu***\nPlease choose an option\033[0m"],
         ["\033[32m1", "Change Username\033[0m"],
         ["\033[32m2", "Change Budget\033[0m"],
-        ["\033[32m3", "Add expenses\033[0m"],
+        ["\033[32m3", "Add/update today's expenses\033[0m"],
         ["\033[32m4", "Update expenses by date\033[0m"],
-        ["\033[32m6", "Search expenses by date\033[0m"],
-        ["\033[32m7", "Search expenses by keyword and date\033[0m"],
-        ["\033[32m7", "Search expenses date\033[0m"],
+        ["\033[32m6", "Search budget overview by date\033[0m"],
         ["\033[32m8", "Search savings by date\033[0m"],
     ]
 
@@ -35,10 +35,12 @@ def menu(USERNAME):
             NEW_BUDGET = input_validator("number", "Please enter your new budget:")
             change_budget(USERNAME ,NEW_BUDGET) 
     elif choice == 3:
-        prices_dict = questions(USERNAME)
+        prices_dict = questions(USERNAME,None)
         add_expenses(prices_dict)
     elif choice == 4:
-        pass
+        DATE = input_validator("date", "Please enter the date you want to update format YYYY-MM-DD")
+        prices_dict = questions(USERNAME,DATE)
+        add_expenses(prices_dict)
     elif choice == 5:
         pass
     elif choice == 6:
@@ -47,3 +49,4 @@ def menu(USERNAME):
         pass
     elif choice == 8:
         pass
+
