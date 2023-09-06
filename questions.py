@@ -1,10 +1,13 @@
 from print_input import slow_print_effect,input_validator
 from datetime import datetime
 
-
-def questions(USERNAME):
+def questions(USERNAME,DATE):
     """prints the questions in the dictionary based on user input and then takes the number input """
-    current_date = datetime.now().date()
+    
+    if DATE:
+        current_date = DATE
+    else:
+        current_date = datetime.now().date().isoformat()# turn date object to ISO format
 
     prices = {# dictionary matching google sheets expenses work sheet
          "username": USERNAME,
@@ -21,7 +24,7 @@ def questions(USERNAME):
          "household":0,
     }
 
-
+    
     questions_dict = { # dictionary with the questions
         "Did you Work Today?": {"work-commute": "How much was your commute to work and home?", "work-lunch": "How much did you spend on lunch?"},
         "Did your kids go to school today?": {"kids-commute": "How much is there commute to school and home?", "kids-lunch": "How much did lunch's cost?"} ,
