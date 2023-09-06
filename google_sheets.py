@@ -34,16 +34,21 @@ except Exception as e:
     print(f"An error occurred: please refresh the browser")
 
 
-def add_expenses(date,prices_dict):
+def add_expenses(prices_dict):
     prices_list = list(prices_dict.values())
-    if date:
-        search_woksheet(date)
-    # Insert prices list to google sheets row
-    EXPENSES_WORKSHEET.insert_row(prices_list)
+
+    matching_cells = EXPENSES_WORKSHEET.findall(prices_list[0], in_column=1)
+
+    for cell in matching_cells:
+        user_row = EXPENSES_WORKSHEET.row_values(cell.row)
+    
+        if prices_list[1] in user_row: 
+            # delete row for that date if it excists
+            EXPENSES_WORKSHEET.delete_row(cell.row)
+            
+    EXPENSES_WORKSHEET.append_row(prices_list)
 
 
-def store_Income(price):
-    INCOME_WORKSHEET.insert_rows(price)
 
 def search_woksheet(USERNAME):
     """search the google sheet by id's in the first column"""
@@ -73,26 +78,19 @@ def change_username(USERNAME,NEW_USERNAME):
         print(f"An error occurred: please try again")
 
 
-def register():
+def register(USERNAME):
 
     """"""   
-    slow_print_effect("Please register!!\n enter your budget and Username, your username must be between 5 and 10 characters long")
     all_usernames = INCOME_WORKSHEET.col_values(1)
-    BUDGET = input_validator("number", "Please Enter Your Budget: \n")
-    while True:
-        USERNAME = input_validator("username",""" Please enter username,
-            \n if you have used this website before please use the same username...
-            \nIt must be 5 to 10 characters long""")
-
-        if USERNAME in all_usernames:
-            slow_print_effect(f"\033[34mPlease enter different username between 4 - 10 characters long!!\033[0m",0.005)    
-            continue 
-        else:
-            slow_print_effect("Congradultion you are registered!!!")
-            INCOME_WORKSHEET.append_row([USERNAME,BUDGET])
-            break
-
+    if USERNAME not in all_usernames:
+        slow_print_effect("Please add your weekly budget as a whole number!! ")
+        BUDGET = input_validator("number", "Please Enter Your Budget: \n")
+        slow_print_effect("Congradultion you are registered!!!")
+        INCOME_WORKSHEET.append_row([USERNAME,BUDGET])
+        EXPENSES_WORKSHEET.append_row([USERNAME])
         
+
+            
 
 
 
