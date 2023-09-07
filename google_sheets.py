@@ -47,13 +47,17 @@ def add_expenses(prices_dict):
 
 
 
-def budget_overview(USERNAME):
+def budget_overview(USERNAME,DATE):
     """search the google sheet and return budget"""
     user_rows = []    
     results = []
-    current_date = datetime.now().date().isoformat()
-    print(current_date)
-    date1 = datetime.strptime(current_date, "%Y-%m-%d")
+
+    if DATE:
+        chosen_date = DATE
+    else:
+        chosen_date = datetime.now().date().isoformat()
+    
+    date1 = datetime.strptime(chosen_date, "%Y-%m-%d")
     
     matching_cells = EXPENSES_WORKSHEET.findall(USERNAME, in_column=1)
     for cell in matching_cells:
@@ -64,8 +68,9 @@ def budget_overview(USERNAME):
         date2 = datetime.strptime(row[1], "%Y-%m-%d")
         # Calculate the difference between the two dates
         date_difference = date1 - date2
+
         # Check if the difference is less than 7 days
-        if date_difference <= timedelta(days=7):
+        if date_difference <= timedelta(days=7) and not date_difference < timedelta(days=0):
             results.append(row)
 
     return results
@@ -121,4 +126,17 @@ def get_budget(USERNAME):
     
     int_budget = int(budget[0][0])
     return int_budget
+
+
+
+def delete_user(USERNAME):
+    matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
+    matching_cells = EXPENSES_WORKSHEET.findall(USERNAME, in_column=1)
+
+    INCOME_WORKSHEET.delete_row(matching_cell.row)
+
+    for cell in matching_cells:
+        EXPENSES_WORKSHEET.delete_row(cell.row)
+
+
 
