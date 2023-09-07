@@ -21,8 +21,8 @@ def main():
     """
     Print logo.
     """
-    #slow_print_effect(f"\033[34m{LOGO}\033[0m",0.005)# ANSI escape codes to change the text color
-    #slow_print_effect("\nWelcome to Budget Trainer in this game you will train your memory to remember your budget and keep track of it\n")
+    slow_print_effect(f"\033[34m{LOGO}\033[0m",0.005)# ANSI escape codes to change the text color
+    slow_print_effect("\nWelcome to Budget Trainer in this game you will train your memory to remember your budget and keep track of it\n")
     USERNAME = input_validator("username", "Please enter username,\n if you have used this website before please use the same username...\nIt must be 5 to 10 characters long")
     menu(USERNAME)
 
