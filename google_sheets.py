@@ -1,10 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from print_input import input_validator,slow_print_effect
-from questions import questions
-from datetime import datetime
-
-
+from datetime import datetime,timedelta
 
 
 # sets what im authorized to use with google cloud services
@@ -50,11 +47,28 @@ def add_expenses(prices_dict):
 
 
 
-def search_woksheet(USERNAME):
-    """search the google sheet by id's in the first column"""
-    matching_cell = EXPENSES_WORKSHEET.find(USERNAME, in_column=1)
-    user_row = EXPENSES_WORKSHEET.row_values(matching_cell.row)
-    return user_row
+def budget_overview(USERNAME):
+    """search the google sheet and return budget"""
+    user_rows = []    
+    results = []
+    current_date = datetime.now().date().isoformat()
+    print(current_date)
+    date1 = datetime.strptime(current_date, "%Y-%m-%d")
+    
+    matching_cells = EXPENSES_WORKSHEET.findall(USERNAME, in_column=1)
+    for cell in matching_cells:
+        user_rows.append(EXPENSES_WORKSHEET.row_values(cell.row))
+    
+    for row in user_rows:
+        # Convert the date strings to datetime objects
+        date2 = datetime.strptime(row[1], "%Y-%m-%d")
+        # Calculate the difference between the two dates
+        date_difference = date1 - date2
+        # Check if the difference is less than 7 days
+        if date_difference <= timedelta(days=7):
+            results.append(row)
+
+    return results
 
 def change_username(USERNAME,NEW_USERNAME):
     try:
@@ -73,7 +87,7 @@ def change_username(USERNAME,NEW_USERNAME):
                 EXPENSES_WORKSHEET.update_acell(cell.address, NEW_USERNAME)
             return True
     except FileNotFoundError: 
-        print("Error: please try again")
+        print("Error changing username: please try again")
     except Exception as e:
         print(f"An error occurred: please try again")
 
@@ -90,9 +104,6 @@ def register(USERNAME):
         EXPENSES_WORKSHEET.append_row([USERNAME])
         
 
-            
-
-
 
 def change_budget(USERNAME,NEW_BUDGET):
     matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
@@ -103,4 +114,11 @@ def change_budget(USERNAME,NEW_BUDGET):
 
     # Update the username in the same row with the new username
     INCOME_WORKSHEET.update_acell(target_cell_a1,NEW_BUDGET)
+
+def get_budget(USERNAME):
+    matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
+    budget = INCOME_WORKSHEET.get(f"B{matching_cell.row}")
+    
+    int_budget = int(budget[0][0])
+    return int_budget
 
