@@ -75,19 +75,13 @@ def menu(USERNAME):
         menu(USERNAME)
     elif choice == 5:
         results = budget_overview(USERNAME,None)
-        print(tabulate(results, keys_list))
-        total_expenses = sum_expenses(results,USERNAME)
-        print(tabulate([total_expenses],["Budget","Total spent","Saved"],"fancy_outline"))
+        tabulate_data(results,USERNAME)
         menu(USERNAME)
     elif choice == 6:
         date = input_validator("date", "Please enter the date that you want 7 day budget from")
         results = budget_overview(USERNAME,date)
-        print(tabulate(results, keys_list,"fancy_outline"))
-        total_expenses = sum_expenses(results,USERNAME)
-        print(tabulate([total_expenses],["Budget","Total spent","Saved"],"fancy_outline"))
-
+        tabulate_data(results,USERNAME)
         menu(USERNAME)
-
     elif choice == 7:
         USERNAME_TO_DELETE = input_validator("username","Please enter your username")
         ans = input_validator("letter",f"Are you sure you want to delete all data belonging to user {USERNAME_TO_DELETE}?\n Type Y for YES and N for NO (Y/N)")
@@ -118,3 +112,18 @@ def sum_expenses(results,USERNAME):
         total_left = user_budget - total_sum
 
     return [user_budget,total_sum,total_left]
+
+
+def tabulate_data(results,keys_list,USERNAME):
+    col1 = results
+    col0=keys_list
+    # Print the table in columns
+    table = list(zip(col0, *col1))
+
+    # Use a suitable table format for column layout (e.g., 'plain', 'simple', 'pipe', 'orgtbl')
+    table_format = 'fancy_outline'
+
+    # Print the table
+    print(tabulate(table, tablefmt=table_format))
+    total_expenses = sum_expenses(results,USERNAME)
+    print(tabulate([total_expenses],["Budget","Total spent","Saved"],"fancy_outline"))
