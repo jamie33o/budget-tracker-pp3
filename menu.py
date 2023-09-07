@@ -75,12 +75,12 @@ def menu(USERNAME):
         menu(USERNAME)
     elif choice == 5:
         results = budget_overview(USERNAME,None)
-        tabulate_data(results,USERNAME)
+        tabulate_data(results,keys_list,USERNAME)
         menu(USERNAME)
     elif choice == 6:
         date = input_validator("date", "Please enter the date that you want 7 day budget from")
         results = budget_overview(USERNAME,date)
-        tabulate_data(results,USERNAME)
+        tabulate_data(results,keys_list,USERNAME)
         menu(USERNAME)
     elif choice == 7:
         USERNAME_TO_DELETE = input_validator("username","Please enter your username")
