@@ -29,11 +29,11 @@ def menu(USERNAME):
         ["\033[32m2", "Change Budget\033[0m"],
         ["\033[32m3", "Add/update today's expenses\033[0m"],
         ["\033[32m4", "Update expenses by date\033[0m"],
-        ["\033[32m5", "Search budget overview by date\033[0m"],
-        ["\033[32m6", "View budget overview \033[0m"],
-        ["\033[32m8", "Search savings by date\033[0m"],
-        ["\033[32m8", "Delete all data linked to username\033[0m"],
+        ["\033[32m5", "View budget overview for last 7 days \033[0m"],
+        ["\033[32m6", "Search budget overview by date\033[0m"],
+        ["\033[32m7", "Delete all data linked to username\033[0m"],
     ]
+    keys_list = list(prices.keys())
 
     print(tabulate(menu_options))
 
@@ -59,30 +59,39 @@ def menu(USERNAME):
         prices_dict = questions(USERNAME,DATE,prices)
         add_expenses(prices_dict)
     elif choice == 5:
-        results = budget_overview(USERNAME)
-        keys_list = list(prices.keys())
+        results = budget_overview(USERNAME,None)
+        print(tabulate(results, keys_list))
+        total_expenses = sum_expenses(results,USERNAME)
+        print(tabulate([total_expenses],["Budget","Total spent","Saved"],"fancy_outline"))
+    elif choice == 6:
+        date = input_validator("date", "Please enter the date that you want 7 day budget from")
+        results = budget_overview(USERNAME,date)
         print(tabulate(results, keys_list,"fancy_outline"))
-        # Initialize a variable to store the sum of numbers
-        total_sum = 0
+        total_expenses = sum_expenses(results,USERNAME)
+        print(tabulate([total_expenses],["Budget","Total spent","Saved"],"fancy_outline"))
+    elif choice == 7:
+        USERNAME_TO_DELETE = input_validator("username","Please enter your username")
+        ans = input_validator("letter",f"Are you sure you want to delete all data belonging to user {USERNAME_TO_DELETE}?\n Type Y for YES and N for NO (Y/N)")
+        if ans == "Y":
+            delete_user(USERNAME_TO_DELETE)
 
-        # Iterate through the inner lists
-        for inner_list in results:
-            # Slice the inner list from the 2nd element to the end to skip the first two strings
-            numbers = inner_list[2:]
-            # Using map() to convert strings to integers
-            int_list = list(map(int, numbers))
-            # Sum the numbers in the sliced list
-            inner_sum = sum(int_list)
 
-            # Add the inner sum to the total sum
-            total_sum += inner_sum
+def sum_expenses(results,USERNAME):
+    # Initialize a variable to store the sum of numbers
+    total_sum = 0
+
+    # Iterate through the inner lists
+    for inner_list in results:
+        # Slice the inner list from the 2nd element to the end to skip the first two strings
+        numbers = inner_list[2:]
+        # Using map() to convert strings to integers
+        int_list = list(map(int, numbers))
+        # Sum the numbers in the sliced list
+        inner_sum = sum(int_list)
+
+        # Add the inner sum to the total sum
+        total_sum += inner_sum
         user_budget = get_budget(USERNAME)
         total_left = user_budget - total_sum
-        print(tabulate([[user_budget,total_sum,total_left]],["Budget","Total spent","Saved"],"fancy_outline"))
-    elif choice == 6:
-        pass
-    elif choice == 7:
-        pass
-    elif choice == 8:
-        pass
 
+    return [user_budget,total_sum,total_left]
