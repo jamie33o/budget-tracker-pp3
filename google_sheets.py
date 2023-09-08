@@ -26,75 +26,9 @@ try:
     EXPENSES_WORKSHEET = SHEET.worksheet("expenses")
 
 except FileNotFoundError: 
-    print("Error: please try again")
-except Exception as e:
-    print(f"An error occurred: please refresh the browser")
-
-
-def add_expenses(prices_dict):
-    prices_list = list(prices_dict.values())
-
-    matching_cells = EXPENSES_WORKSHEET.findall(prices_list[0], in_column=1)
-
-    for cell in matching_cells:
-        user_row = EXPENSES_WORKSHEET.row_values(cell.row)
-    
-        if prices_list[1] in user_row: 
-            # delete row for that date if it excists
-            EXPENSES_WORKSHEET.delete_row(cell.row)
-            
-    EXPENSES_WORKSHEET.append_row(prices_list)
-
-
-
-def budget_overview(USERNAME,DATE):
-    """search the google sheet and return budget"""
-    user_rows = []    
-    results = []
-
-    if DATE:
-        chosen_date = DATE
-    else:
-        chosen_date = datetime.now().date().isoformat()
-    
-    date1 = datetime.strptime(chosen_date, "%Y-%m-%d")
-    
-    matching_cells = EXPENSES_WORKSHEET.findall(USERNAME, in_column=1)
-    for cell in matching_cells:
-        user_rows.append(EXPENSES_WORKSHEET.row_values(cell.row))
-    
-    for row in user_rows:
-        # Convert the date strings to datetime objects
-        date2 = datetime.strptime(row[1], "%Y-%m-%d")
-        # Calculate the difference between the two dates
-        date_difference = date1 - date2
-
-        # Check if the difference is less than 7 days
-        if date_difference <= timedelta(days=7) and not date_difference < timedelta(days=0):
-            results.append(row)
-
-    return results
-
-def change_username(USERNAME,NEW_USERNAME):
-    try:
-        matching_cell = INCOME_WORKSHEET.find(NEW_USERNAME, in_column=1)
-        if matching_cell:
-            print("Please choose a different username")
-            return False
-        else:
-            matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
-            INCOME_WORKSHEET.update(matching_cell.address, NEW_USERNAME)
-
-            matching_cells = EXPENSES_WORKSHEET.findall(USERNAME, in_column=1)
-
-            # Update the username at each cell address
-            for cell in matching_cells:
-                EXPENSES_WORKSHEET.update_acell(cell.address, NEW_USERNAME)
-            return True
-    except FileNotFoundError: 
-        print("Error changing username: please try again")
-    except Exception as e:
-        print(f"An error occurred: please try again")
+    print("Error: please refresh the browser\n")
+except Exception:
+    print(f"An error occurred: please refresh the browser\n")
 
 
 def register(USERNAME):
@@ -111,13 +45,91 @@ def register(USERNAME):
         return False
 
 def login(USERNAME):
-    """"""   
-    all_usernames = INCOME_WORKSHEET.col_values(1)
-    if USERNAME in all_usernames:
-        slow_print_effect("Congradultion you are logged in!!!")
-        return True
-    else:
+    """function for logging the user in by checking if username exists"""   
+    try:
+        all_usernames = INCOME_WORKSHEET.col_values(1)
+        if USERNAME in all_usernames:
+            return True
+        else:
+            return False
+    except Exception:
+        print("Error logging in: please try again\n")
         return False
+
+
+def change_username(USERNAME,NEW_USERNAME):
+    try:
+        matching_cell = INCOME_WORKSHEET.find(NEW_USERNAME, in_column=1)
+        if matching_cell:
+            print("Please choose a different username\n")
+            return False
+        else:
+            matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
+            INCOME_WORKSHEET.update_acell(matching_cell.address, NEW_USERNAME)
+
+            matching_cells = EXPENSES_WORKSHEET.findall(USERNAME, in_column=1)
+
+            # Update the username at each cell address
+            for cell in matching_cells:
+                EXPENSES_WORKSHEET.update_acell(cell.address, NEW_USERNAME)
+            return True
+    except Exception:
+        print("Error changing username: please try again\n")
+        return False
+
+
+def add_expenses(prices_dict):
+    prices_list = list(prices_dict.values())
+
+    try:
+        matching_cells = EXPENSES_WORKSHEET.findall(prices_list[0], in_column=1)
+
+        for cell in matching_cells:
+            user_row = EXPENSES_WORKSHEET.row_values(cell.row)
+        
+            if prices_list[1] in user_row: 
+                # delete row for that date if it excists
+                EXPENSES_WORKSHEET.delete_row(cell.row)
+                
+        EXPENSES_WORKSHEET.append_row(prices_list)
+
+    except Exception:
+        print("An error occurred while adding expenses")
+
+
+
+
+def budget_overview(USERNAME,DATE):
+    """search the google sheet and return budget"""
+    user_rows = []    
+    results = []
+    try:
+        if DATE:
+            chosen_date = DATE
+        else:
+            chosen_date = datetime.now().date().isoformat()
+        
+        date1 = datetime.strptime(chosen_date, "%Y-%m-%d")
+        
+        matching_cells = EXPENSES_WORKSHEET.findall(USERNAME, in_column=1)
+        for cell in matching_cells:
+            user_rows.append(EXPENSES_WORKSHEET.row_values(cell.row))
+        
+        for row in user_rows:
+            # Convert the date strings to datetime objects
+            date2 = datetime.strptime(row[1], "%Y-%m-%d")
+            # Calculate the difference between the two dates
+            date_difference = date1 - date2
+
+            # Check if the difference is less than 7 days
+            if date_difference <= timedelta(days=7) and not date_difference < timedelta(days=0):
+                results.append(row)
+
+        return results
+    except Exception as e:
+        print(f"An error occurred while changing the username: {str(e)}")
+        return False
+
 
 def change_budget(USERNAME,NEW_BUDGET):
     matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
