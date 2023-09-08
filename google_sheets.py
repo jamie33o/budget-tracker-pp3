@@ -32,7 +32,13 @@ except Exception:
 
 
 def register(USERNAME):
-    """"""   
+    """register's user by adding there user name and budget to goole sheet income worksheet
+    and add username to expense worksheet
+     Parameters:
+        USERNAME (string): users username
+        
+    Returns:
+        returns true or false: If user is added to worksheets"""   
     all_usernames = INCOME_WORKSHEET.col_values(1)
     if USERNAME not in all_usernames:
         slow_print_effect("Please add your weekly budget as a whole number!! ")
@@ -45,7 +51,15 @@ def register(USERNAME):
         return False
 
 def login(USERNAME):
-    """function for logging the user in by checking if username exists"""   
+    """log's the user in by checking if username exists 
+   
+    Parameters:
+        USERNAME (string): users username
+        
+    Returns:
+        returns true: If username is in worksheets
+        returns false: If username is not in worksheets or if there is an error
+        """    
     try:
         all_usernames = INCOME_WORKSHEET.col_values(1)
         if USERNAME in all_usernames:
@@ -58,6 +72,16 @@ def login(USERNAME):
 
 
 def change_username(USERNAME,NEW_USERNAME):
+    """changes the users username 
+
+    Parameters:
+        USERNAME (string): users username
+        NEW_USERNAME (string): users new_username
+        
+    Returns:
+        returns true: If username is changed
+        returns false: If username is not changed
+        """    
     try:
         matching_cell = INCOME_WORKSHEET.find(NEW_USERNAME, in_column=1)
         if matching_cell:
@@ -79,17 +103,43 @@ def change_username(USERNAME,NEW_USERNAME):
 
 
 def change_budget(USERNAME,NEW_BUDGET):
-    matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
-    # Define the target column index (2 for column B)
-    target_column_index = "B"
-    # Calculate the A1 notation for the cell in the same row but in the target column
-    target_cell_a1 = f"{target_column_index}{matching_cell.row}"
+    """changes the users budget in the income worksheet 
 
-    # Update the username in the same row with the new username
-    INCOME_WORKSHEET.update_acell(target_cell_a1,NEW_BUDGET)
+    Parameters:
+        USERNAME (string): users username
+        NEW_BUDGET (string): users new_budget
+        
+    Returns:
+        returns true: If budget is changed
+        returns false: If budget is not changed
+        """    
+    try:
+        matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
+        # Define the target column index (2 for column B)
+        target_column_index = "B"
+        # Calculate the A1 notation for the cell in the same row but in the target column
+        target_cell_a1 = f"{target_column_index}{matching_cell.row}"
+
+        # Update the username in the same row with the new username
+        INCOME_WORKSHEET.update_acell(target_cell_a1,NEW_BUDGET)
+        return True
+    except Exception:
+        print("Error changing budget: please try again\n")
+        return False
+
+
 
 
 def add_expenses(prices_dict):
+    """adds the users expenses to the expenses worksheet 
+
+    Parameters:
+        price_dict (dictionary): expenses dictionary
+        
+    Returns:
+        returns true: If expenses are added to worksheet
+        returns false: If expenses are not added
+        """    
     prices_list = list(prices_dict.values())
 
     try:
@@ -103,13 +153,24 @@ def add_expenses(prices_dict):
                 EXPENSES_WORKSHEET.delete_row(cell.row)
                 
         EXPENSES_WORKSHEET.append_row(prices_list)
-
+        return True
     except Exception:
         print("An error occurred while adding expenses")
-
+        return False
 
 def budget_overview(USERNAME,DATE):
-    """search the google sheet and return budget"""
+    """changes the users budget in the income worksheet 
+
+    Parameters:
+        USERNAME (string): users username
+        DATE (string): user input date
+        
+    Returns:
+        returns results: list of exspenses matching user user name with in 7days of current date
+        or date input
+
+        returns false: If there is an error
+        """    
     user_rows = []    
     results = []
     try:
@@ -135,26 +196,51 @@ def budget_overview(USERNAME,DATE):
                 results.append(row)
 
         return results
-    except Exception as e:
-        print(f"An error occurred while changing the username: {str(e)}")
+    except Exception:
+        print("An error occurred while retrieving budget data")
         return False
 
 
 def delete_user(USERNAME):
-    matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
-    matching_cells = EXPENSES_WORKSHEET.findall(USERNAME, in_column=1)
+    """deletes all data relating to the users username
 
-    INCOME_WORKSHEET.delete_row(matching_cell.row)
+    Parameters:
+        USERNAME (string): users username
+       
+    Returns:
+        returns true: if the data is deleted
 
-    for cell in matching_cells:
-        EXPENSES_WORKSHEET.delete_row(cell.row)
+        returns false: If there is an error
+        """    
+    try:
+        matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
+        matching_cells = EXPENSES_WORKSHEET.findall(USERNAME, in_column=1)
+        INCOME_WORKSHEET.delete_row(matching_cell.row)
+
+        for cell in matching_cells:
+            EXPENSES_WORKSHEET.delete_row(cell.row)
+    except Exception:
+        print("Error deleting data please try again")
+        
 
 
 def get_budget(USERNAME):
-    matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
-    budget = INCOME_WORKSHEET.get(f"B{matching_cell.row}")
-    
-    int_budget = int(budget[0][0])
-    return int_budget
+    """retrieves the users budget
+
+    Parameters:
+        USERNAME (string): users username
+       
+    Returns:
+        returns true: if the budget is retrieved
+        returns false: If there is an error
+        """    
+    try:
+        matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
+        budget = INCOME_WORKSHEET.get(f"B{matching_cell.row}")
+        int_budget = int(budget[0][0])
+        return int_budget
+    except Exception:
+        print("Error retrieving budget")
+        return False
 
 
