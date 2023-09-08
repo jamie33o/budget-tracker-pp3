@@ -78,6 +78,17 @@ def change_username(USERNAME,NEW_USERNAME):
         return False
 
 
+def change_budget(USERNAME,NEW_BUDGET):
+    matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
+    # Define the target column index (2 for column B)
+    target_column_index = "B"
+    # Calculate the A1 notation for the cell in the same row but in the target column
+    target_cell_a1 = f"{target_column_index}{matching_cell.row}"
+
+    # Update the username in the same row with the new username
+    INCOME_WORKSHEET.update_acell(target_cell_a1,NEW_BUDGET)
+
+
 def add_expenses(prices_dict):
     prices_list = list(prices_dict.values())
 
@@ -95,8 +106,6 @@ def add_expenses(prices_dict):
 
     except Exception:
         print("An error occurred while adding expenses")
-
-
 
 
 def budget_overview(USERNAME,DATE):
@@ -131,25 +140,6 @@ def budget_overview(USERNAME,DATE):
         return False
 
 
-def change_budget(USERNAME,NEW_BUDGET):
-    matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
-    # Define the target column index (2 for column B)
-    target_column_index = "B"
-    # Calculate the A1 notation for the cell in the same row but in the target column
-    target_cell_a1 = f"{target_column_index}{matching_cell.row}"
-
-    # Update the username in the same row with the new username
-    INCOME_WORKSHEET.update_acell(target_cell_a1,NEW_BUDGET)
-
-def get_budget(USERNAME):
-    matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
-    budget = INCOME_WORKSHEET.get(f"B{matching_cell.row}")
-    
-    int_budget = int(budget[0][0])
-    return int_budget
-
-
-
 def delete_user(USERNAME):
     matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
     matching_cells = EXPENSES_WORKSHEET.findall(USERNAME, in_column=1)
@@ -159,5 +149,12 @@ def delete_user(USERNAME):
     for cell in matching_cells:
         EXPENSES_WORKSHEET.delete_row(cell.row)
 
+
+def get_budget(USERNAME):
+    matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
+    budget = INCOME_WORKSHEET.get(f"B{matching_cell.row}")
+    
+    int_budget = int(budget[0][0])
+    return int_budget
 
 
