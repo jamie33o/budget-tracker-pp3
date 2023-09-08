@@ -43,9 +43,7 @@ def register(USERNAME):
     if USERNAME not in all_usernames:
         slow_print_effect("Please add your weekly budget as a whole number!! ")
         BUDGET = input_validator("number", "Please Enter Your Budget: \n")
-        slow_print_effect("Congradultion you are registered!!!")
         INCOME_WORKSHEET.append_row([USERNAME,BUDGET])
-        EXPENSES_WORKSHEET.append_row([USERNAME])
         return True
     else:
         return False
@@ -184,13 +182,12 @@ def budget_overview(USERNAME,DATE):
         matching_cells = EXPENSES_WORKSHEET.findall(USERNAME, in_column=1)
         for cell in matching_cells:
             user_rows.append(EXPENSES_WORKSHEET.row_values(cell.row))
-        
+
         for row in user_rows:
             # Convert the date strings to datetime objects
             date2 = datetime.strptime(row[1], "%Y-%m-%d")
             # Calculate the difference between the two dates
             date_difference = date1 - date2
-
             # Check if the difference is less than 7 days
             if date_difference <= timedelta(days=7) and not date_difference < timedelta(days=0):
                 results.append(row)
