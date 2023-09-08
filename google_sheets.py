@@ -98,7 +98,6 @@ def change_username(USERNAME,NEW_USERNAME):
 
 
 def register(USERNAME):
-
     """"""   
     all_usernames = INCOME_WORKSHEET.col_values(1)
     if USERNAME not in all_usernames:
@@ -107,8 +106,18 @@ def register(USERNAME):
         slow_print_effect("Congradultion you are registered!!!")
         INCOME_WORKSHEET.append_row([USERNAME,BUDGET])
         EXPENSES_WORKSHEET.append_row([USERNAME])
-        
+        return True
+    else:
+        return False
 
+def login(USERNAME):
+    """"""   
+    all_usernames = INCOME_WORKSHEET.col_values(1)
+    if USERNAME in all_usernames:
+        slow_print_effect("Congradultion you are logged in!!!")
+        return True
+    else:
+        return False
 
 def change_budget(USERNAME,NEW_BUDGET):
     matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
