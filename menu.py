@@ -3,14 +3,44 @@ from print_input import input_validator,clear_terminal
 from questions import questions
 from google_sheets import *
 
+USERNAME = None
 
-def menu(USERNAME):
+
+def menu():
     
     input("Press Enter to view the menu")
-
+    global USERNAME
     clear_terminal()
+    
+    if not USERNAME:
+        login_register_options = [
+            ["\033[32m1" , "Log-in\033[0m"],
+            ["\033[32m2", "Register\033[0m"],
+        ]
+        
+        print(tabulate(login_register_options)) 
 
-    register(USERNAME)
+        choice = input_validator("number", "Please choose an option")
+        
+        USERNAME = input_validator("username", "Please enter username\nIt must be 5 to 10 characters long")
+        while True:
+            if choice == 1:
+                logged_in = login(USERNAME)
+                if logged_in:
+                    break
+                else:
+                    print("Error logging in... Please try again...")
+                    USERNAME = None
+                    menu()
+            else:
+                registered = register(USERNAME)
+                if registered:
+                    break
+                else:
+                    print("Error registering... Please try again...")
+                    USERNAME = None
+                    menu()
+    
 
     prices = {# dictionary matching google sheets expenses work sheet
         "username": USERNAME,
@@ -45,52 +75,52 @@ def menu(USERNAME):
 
 
     if choice == 1:
-        while True:
-            NEW_USERNAME = input_validator("username",""" Please enter your new username,
+        NEW_USERNAME = input_validator("username",""" Please enter your new username,
                 \nIt must be 5 to 10 characters long""")
+        while True:
             username_changed = change_username(USERNAME,NEW_USERNAME)
             if username_changed:
                 USERNAME = NEW_USERNAME
                 break
-        
         slow_print_effect("Username Updated!!!!")
         menu(USERNAME)
     elif choice == 2:
         NEW_BUDGET = input_validator("number", "Please enter your new budget:")
         change_budget(USERNAME ,NEW_BUDGET) 
         slow_print_effect("Budget Updated!!!!")
-        menu(USERNAME)
+        menu()
     elif choice == 3:
         prices_dict = questions(None,prices)
         add_expenses(prices_dict)
         
         slow_print_effect("Expenses Added!!!!")
-        menu(USERNAME)
+        menu()
     elif choice == 4:
         DATE = input_validator("date", "Please enter the date you want to update format YYYY-MM-DD")
         prices_dict = questions(DATE,prices)
         add_expenses(prices_dict)
         
         slow_print_effect("Expenses Updated!!!!")
-        menu(USERNAME)
+        menu()
     elif choice == 5:
         results = budget_overview(USERNAME,None)
         tabulate_data(results,keys_list,USERNAME)
-        menu(USERNAME)
+        menu()
     elif choice == 6:
         date = input_validator("date", "Please enter the date that you want 7 day budget from")
         results = budget_overview(USERNAME,date)
         tabulate_data(results,keys_list,USERNAME)
-        menu(USERNAME)
+        menu()
     elif choice == 7:
         USERNAME_TO_DELETE = input_validator("username","Please enter your username")
         ans = input_validator("letter",f"Are you sure you want to delete all data belonging to user {USERNAME_TO_DELETE}?\n Type Y for YES and N for NO (Y/N)")
         if ans == "Y":
             delete_user(USERNAME_TO_DELETE)
             slow_print_effect("Account deleted!!!")
-            menu(None)
+            USERNAME = None
+            menu()
         else:
-            menu(USERNAME)
+            menu()
 
 
 def sum_expenses(results,USERNAME):
