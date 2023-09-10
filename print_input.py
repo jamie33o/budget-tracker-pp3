@@ -24,7 +24,6 @@ def input_validator(expected_type, input_text):
                 input_value = input(f"\n {input_text}\n")
                 input_value = input_value.upper()
                 if input_value in ["Y", "N"]:
-                       clear_terminal()
                        break  # Exit the loop if the input is a valid string
                 else: 
                     slow_print_effect(text_style("error","Wrong input! Please enter text."))
