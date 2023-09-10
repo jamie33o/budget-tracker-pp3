@@ -93,7 +93,7 @@ def menu():
             username_changed = change_username(USERNAME,NEW_USERNAME)
             if username_changed:
                 USERNAME = NEW_USERNAME
-                slow_print_effect(text_style("input","Username Updated!!!!\n"))
+                slow_print_effect(text_style("success","Username Updated!!!!\n"))
                 break
             
     elif choice == 2:
