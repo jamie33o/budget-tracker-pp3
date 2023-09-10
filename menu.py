@@ -34,18 +34,24 @@ def menu():
         ]
         
         print(tabulate(login_register_options)) 
-
-        choice = input_validator("number", text_style("input","Please choose an option"))
-        
         while True:
-            USERNAME = input_validator("username", text_style("input","Please enter username\nIt must be 5 to 10 characters long"))
+            choice = input_validator("number", text_style("input","Please choose an option"))
+            if choice in [1,2]:
+                break
+            else:
+                print(text_style("error","Please enter 1 or 2\n"))
+        while True:
+            USERNAME = input_validator("username", text_style("input","Please enter a username\nIt must be 5 to 10 characters long"))
             if choice == 1:
                 logged_in = login(USERNAME)
                 if logged_in:
                     slow_print_effect(text_style("success","Congradultion you are logged in!!!\n"))
                     break
                 else:
-                    print(text_style("error","Error logging in... Please try again...\n"))
+                    print(text_style("error",f"{USERNAME} does not exist... \nType 1 to register\nType 2 to try again\n"))
+                    new_choice = input_validator("number", text_style("input","Please choose an option"))
+                    if new_choice == 1:
+                        choice = new_choice
                     USERNAME = None
             else:
                 registered = register(USERNAME)
@@ -61,7 +67,8 @@ def menu():
                     print(text_style("error","Error registering... Please try again...\n"))
                     USERNAME = None
             
-   
+    clear_terminal()
+
     menu_options = [
         ["\033[36m" , "***Budget Tracker Menu***\nPlease choose an option\033[0m"],
         ["1", "Change Username"],
@@ -76,7 +83,7 @@ def menu():
 
     print(tabulate(menu_options))
 
-    choice = input_validator("number",text_style("input", "Please choose an option between 1 and 5:\n"))
+    choice = input_validator("number",text_style("input", "Please choose an option between 1 and 7:\n"))
 
 
     if choice == 1:
@@ -87,7 +94,6 @@ def menu():
             if username_changed:
                 USERNAME = NEW_USERNAME
                 slow_print_effect(text_style("input","Username Updated!!!!\n"))
-                menu()
                 break
             
     elif choice == 2:
@@ -95,42 +101,46 @@ def menu():
         budget_changed = change_budget(USERNAME ,NEW_BUDGET)
         if budget_changed:
             slow_print_effect(text_style("success","Budget Updated!!!!\n"))
-        menu()
     elif choice == 3:
         prices_dict = questions(None,prices)
         expenses_added = add_expenses(prices_dict)
         if expenses_added:
             slow_print_effect(text_style("success","Expenses Added!!!!\n"))
-        menu()
     elif choice == 4:
         DATE = input_validator("date", text_style("input","Please enter the date you want to update format YYYY-MM-DD"))
         prices_dict = questions(DATE,prices)
         expenses_added = add_expenses(prices_dict)
         if expenses_added:
             slow_print_effect(text_style("success","Expenses Updated!!!!\n"))
-        menu()
     elif choice == 5:
         results = budget_overview(USERNAME,None)
         if results :
             tabulate_data(results,keys_list,USERNAME)
-        menu()
+        else:
+            slow_print_effect(text_style("error","Sorry you have no expenses added!!!\n"))
+
     elif choice == 6:
-        date = input_validator("date", text_style("input","Please enter the date that you want 7 day budget from"))
+        date = input_validator("date", text_style("input","Please enter the date for the budget, which will be 7 days previous to the date you provide.\nPlease enter date as YYYY-MM-DD"))
         results = budget_overview(USERNAME,date)
-        if len(results) >5:
+        if results:
             tabulate_data(results,keys_list,USERNAME)
-        menu()
+        else:
+            slow_print_effect(text_style("error","Sorry we have no expenses before that date!!!\n"))
+
     elif choice == 7:
         USERNAME_TO_DELETE = input_validator("username",text_style("input","Please enter your username"))
-        ans = input_validator("letter",text_style("input",f"Are you sure you want to delete all data belonging to user {USERNAME_TO_DELETE}?\n Type Y for YES and N for NO (Y/N)"))
-        if ans == "Y":
-            user_deleted = delete_user(USERNAME_TO_DELETE)
-            if user_deleted:
-                slow_print_effect(text_style("success","Account deleted!!!"))
-                USERNAME = None
-            menu()
+        if USERNAME == USERNAME_TO_DELETE:
+            ans = input_validator("letter",text_style("input",f"Are you sure you want to delete all data belonging to user {USERNAME_TO_DELETE}?\n Type Y for YES and N for NO (Y/N)"))
+            if ans == "Y":
+                user_deleted = delete_user(USERNAME_TO_DELETE)
+                if user_deleted:
+                    slow_print_effect(text_style("success","Account deleted!!!\n"))
+                    USERNAME = None
         else:
-            menu()
+            slow_print_effect(text_style("error","Wrong Username!!!\n"))
+    else:
+        slow_print_effect(text_style("error",f"{choice} is not an option!!!\n"))
+
 
 
 def sum_expenses(results,USERNAME):
