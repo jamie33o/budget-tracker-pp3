@@ -1,5 +1,5 @@
 from tabulate import tabulate  # table prints
-from print_input import input_validator,clear_terminal
+from print_input import *
 from questions import questions
 from google_sheets import *
 
@@ -8,7 +8,7 @@ USERNAME = None
 
 def menu():
     
-    input("Press Enter to view the menu\n")
+    input(text_style("input","Press Enter to view the menu"))
     global USERNAME
     clear_terminal()
 
@@ -29,85 +29,85 @@ def menu():
     
     if not USERNAME:
         login_register_options = [
-            ["\033[32m1" , "Log-in\033[0m"],
-            ["\033[32m2", "Register\033[0m"],
+            ["1" , "Log-in"],
+            ["2", "Register"],
         ]
         
         print(tabulate(login_register_options)) 
 
-        choice = input_validator("number", "Please choose an option")
+        choice = input_validator("number", text_style("input","Please choose an option"))
         
         while True:
-            USERNAME = input_validator("username", "Please enter username\nIt must be 5 to 10 characters long")
+            USERNAME = input_validator("username", text_style("input","Please enter username\nIt must be 5 to 10 characters long"))
             if choice == 1:
                 logged_in = login(USERNAME)
                 if logged_in:
-                    slow_print_effect("Congradultion you are logged in!!!\n")
+                    slow_print_effect(text_style("success","Congradultion you are logged in!!!\n"))
                     break
                 else:
-                    print("Error logging in... Please try again...\n")
+                    print(text_style("error","Error logging in... Please try again...\n"))
                     USERNAME = None
             else:
                 registered = register(USERNAME)
                 if registered:
-                    slow_print_effect("Congradultion you are registered!!!\n")
+                    slow_print_effect(text_style("success","Congradultion you are registered!!!\n"))
                     prices["username"] = USERNAME
                     prices_dict = questions(None,prices)
                     expenses_added = add_expenses(prices_dict)
                     if expenses_added:
-                        slow_print_effect("Expenses Added!!!!\n")
+                        slow_print_effect(text_style("success","Expenses Added!!!!\n"))
                     break
                 else:
-                    print("Error registering... Please try again...\n")
+                    print(text_style("error","Error registering... Please try again...\n"))
                     USERNAME = None
             
    
     menu_options = [
-        ["\033[30m" , "***Budget Tracker Menu***\nPlease choose an option\033[0m"],
-        ["\033[32m1", "Change Username\033[0m"],
-        ["\033[32m2", "Change Budget\033[0m"],
-        ["\033[32m3", "Add/update today's expenses\033[0m"],
-        ["\033[32m4", "Update expenses by date\033[0m"],
-        ["\033[32m5", "View budget overview for last 7 days \033[0m"],
-        ["\033[32m6", "Search budget overview by date\033[0m"],
-        ["\033[32m7", "Delete all data linked to username\033[0m"],
+        ["\033[36m" , "***Budget Tracker Menu***\nPlease choose an option\033[0m"],
+        ["1", "Change Username"],
+        ["2", "Change Budget"],
+        ["3", "Add/update today's expenses"],
+        ["4", "Update expenses by date"],
+        ["5", "View budget overview for last 7 days"],
+        ["6", "Search budget overview by date"],
+        ["7", "Delete all data linked to username"],
     ]
     keys_list = list(prices.keys())
 
     print(tabulate(menu_options))
 
-    choice = input_validator("number","Please choose an option between 1 and 5:\n")
+    choice = input_validator("number",text_style("input", "Please choose an option between 1 and 5:\n"))
 
 
     if choice == 1:
         while True:
-            NEW_USERNAME = input_validator("username","""Please enter your new username,
-                    \nIt must be 5 to 10 characters long\n""")
+            NEW_USERNAME = input_validator("username",text_style("input", """Please enter your new username,
+                    \nIt must be 5 to 10 characters long\n"""))
             username_changed = change_username(USERNAME,NEW_USERNAME)
             if username_changed:
                 USERNAME = NEW_USERNAME
-                slow_print_effect("Username Updated!!!!\n")
+                slow_print_effect(text_style("input","Username Updated!!!!\n"))
                 menu()
                 break
             
     elif choice == 2:
-        NEW_BUDGET = input_validator("number", "Please enter your new budget: \n")
+        NEW_BUDGET = input_validator("number", text_style("input", "Please enter your new budget: \n"))
         budget_changed = change_budget(USERNAME ,NEW_BUDGET)
         if budget_changed:
-            slow_print_effect("Budget Updated!!!!\n")
+            slow_print_effect(text_style("success","Budget Updated!!!!\n"))
         menu()
     elif choice == 3:
         prices_dict = questions(None,prices)
         expenses_added = add_expenses(prices_dict)
         if expenses_added:
-            slow_print_effect("Expenses Added!!!!\n")
+            slow_print_effect(text_style("success","Expenses Added!!!!\n"))
         menu()
     elif choice == 4:
-        DATE = input_validator("date", "Please enter the date you want to update format YYYY-MM-DD")
+        DATE = input_validator("date", text_style("input","Please enter the date you want to update format YYYY-MM-DD"))
         prices_dict = questions(DATE,prices)
         expenses_added = add_expenses(prices_dict)
         if expenses_added:
-            slow_print_effect("Expenses Updated!!!!\n")
+            slow_print_effect(text_style("success","Expenses Updated!!!!\n"))
         menu()
     elif choice == 5:
         results = budget_overview(USERNAME,None)
@@ -115,18 +115,18 @@ def menu():
             tabulate_data(results,keys_list,USERNAME)
         menu()
     elif choice == 6:
-        date = input_validator("date", "Please enter the date that you want 7 day budget from")
+        date = input_validator("date", text_style("input","Please enter the date that you want 7 day budget from"))
         results = budget_overview(USERNAME,date)
         if len(results) >5:
             tabulate_data(results,keys_list,USERNAME)
         menu()
     elif choice == 7:
-        USERNAME_TO_DELETE = input_validator("username","Please enter your username")
-        ans = input_validator("letter",f"Are you sure you want to delete all data belonging to user {USERNAME_TO_DELETE}?\n Type Y for YES and N for NO (Y/N)")
+        USERNAME_TO_DELETE = input_validator("username",text_style("input","Please enter your username"))
+        ans = input_validator("letter",text_style("input",f"Are you sure you want to delete all data belonging to user {USERNAME_TO_DELETE}?\n Type Y for YES and N for NO (Y/N)"))
         if ans == "Y":
             user_deleted = delete_user(USERNAME_TO_DELETE)
             if user_deleted:
-                slow_print_effect("Account deleted!!!")
+                slow_print_effect(text_style("success","Account deleted!!!"))
                 USERNAME = None
             menu()
         else:
@@ -156,7 +156,7 @@ def sum_expenses(results,USERNAME):
 
 def tabulate_data(results,keys_list,USERNAME):
     col1 = results
-    col0=keys_list
+    col0 = keys_list
     # Print the table in columns
     table = list(zip(col0, *col1))
 
