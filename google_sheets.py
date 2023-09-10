@@ -2,6 +2,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from print_input import input_validator,slow_print_effect
 from datetime import datetime,timedelta
+from print_input import text_style
 
 
 # sets what im authorized to use with google cloud services
@@ -41,8 +42,8 @@ def register(USERNAME):
         returns true or false: If user is added to worksheets"""   
     all_usernames = INCOME_WORKSHEET.col_values(1)
     if USERNAME not in all_usernames:
-        slow_print_effect("Please add your weekly budget as a whole number!! ")
-        BUDGET = input_validator("number", "Please Enter Your Budget: \n")
+        slow_print_effect(text_style("info","Please add your weekly budget as a whole number!! "))
+        BUDGET = input_validator("number", text_style("input","Please Enter Your Budget: \n"))
         INCOME_WORKSHEET.append_row([USERNAME,BUDGET])
         return True
     else:
@@ -65,7 +66,7 @@ def login(USERNAME):
         else:
             return False
     except Exception:
-        print("Error logging in: please try again\n")
+        print(text_style("error","Error logging in: please try again\n"))
         return False
 
 
@@ -83,7 +84,7 @@ def change_username(USERNAME,NEW_USERNAME):
     try:
         matching_cell = INCOME_WORKSHEET.find(NEW_USERNAME, in_column=1)
         if matching_cell:
-            print("Please choose a different username\n")
+            print(text_style("error","Please choose a different username\n"))
             return False
         else:
             matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
@@ -96,7 +97,7 @@ def change_username(USERNAME,NEW_USERNAME):
                 EXPENSES_WORKSHEET.update_acell(cell.address, NEW_USERNAME)
             return True
     except Exception:
-        print("Error changing username: please try again\n")
+        print(text_style("error","Error changing username: please try again\n"))
         return False
 
 
@@ -122,7 +123,7 @@ def change_budget(USERNAME,NEW_BUDGET):
         INCOME_WORKSHEET.update_acell(target_cell_a1,NEW_BUDGET)
         return True
     except Exception:
-        print("Error changing budget: please try again\n")
+        print(text_style("error","Error changing budget: please try again\n"))
         return False
 
 
@@ -153,7 +154,7 @@ def add_expenses(prices_dict):
         EXPENSES_WORKSHEET.append_row(prices_list)
         return True
     except Exception:
-        print("An error occurred while adding expenses")
+        print(text_style("error","An error occurred while adding expenses"))
         return False
 
 def budget_overview(USERNAME,DATE):
@@ -194,7 +195,7 @@ def budget_overview(USERNAME,DATE):
 
         return results
     except Exception:
-        print("An error occurred while retrieving budget data")
+        print(text_style("error","An error occurred while retrieving budget data"))
         return False
 
 
@@ -217,7 +218,7 @@ def delete_user(USERNAME):
         for cell in matching_cells:
             EXPENSES_WORKSHEET.delete_row(cell.row)
     except Exception:
-        print("Error deleting data please try again")
+        print(text_style("error","Error deleting data please try again"))
         
 
 
@@ -237,7 +238,7 @@ def get_budget(USERNAME):
         int_budget = int(budget[0][0])
         return int_budget
     except Exception:
-        print("Error retrieving budget")
+        print(text_style("error","Error retrieving budget"))
         return False
 
 
