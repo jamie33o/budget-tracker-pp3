@@ -39,10 +39,9 @@ def input_validator(expected_type, input_text):
         while True:
             input_value = input(text_style("input",f"\n{input_text}\n"))
             if len(input_value) in range(5,11):
-                    clear_terminal()
                     break  # Exit the loop if the input is a valid username
             else: 
-                slow_print_effect(text_style("error","Wrong input! Please enter text."))
+                slow_print_effect(text_style("error","Username must be between 6 to 11 characters"))
     elif expected_type == "date":
         while True:
             # Define the regular expression pattern for ISO date format (YYYY-MM-DD)
@@ -62,9 +61,9 @@ def text_style(type,message):
     elif type == "error":
         styled_text = f"\033[31m{message}\033[0m"
     elif type == "info":
-        styled_text = f"\033[35m{message}\033[0m"
+        styled_text = f"\033[33m{message}\033[0m"
     elif type == "input":
-        styled_text = f"\033[36m{message}\033[0m"
+        styled_text = f"\033[36m\033[1m{message}\033[0m"
 
 
     return styled_text
