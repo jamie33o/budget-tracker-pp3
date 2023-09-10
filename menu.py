@@ -136,6 +136,9 @@ def menu():
                 if user_deleted:
                     slow_print_effect(text_style("success","Account deleted!!!\n"))
                     USERNAME = None
+                else:
+                    slow_print_effect(text_style("error","Account not deleted!!!\n"))
+
         else:
             slow_print_effect(text_style("error","Wrong Username!!!\n"))
     else:
