@@ -1,6 +1,5 @@
-from print_input import slow_print_effect
+from print_input import slow_print_effect,text_style
 from menu import menu
-from print_input import input_validator
 
 
 LOGO = """
@@ -29,8 +28,8 @@ def main():
     """
     Print logo.
     """
-    slow_print_effect(f"\033[34m{LOGO}\033[0m",0.005)# ANSI escape codes to change the text color
-    slow_print_effect("\nWelcome to Budget Tracker\nBudget Tracker helps you keep track of your budget\n")
+    slow_print_effect(text_style("success",LOGO),0.005)# ANSI escape codes to change the text color
+    slow_print_effect(text_style("info","\nWelcome to Budget Tracker\nBudget Tracker helps you keep track of your budget\n"))
     menu()
 
 
