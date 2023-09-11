@@ -82,13 +82,13 @@ def change_username(USERNAME,NEW_USERNAME):
         returns false: If username is not changed
         """    
     try:
-        matching_cell = INCOME_WORKSHEET.find(NEW_USERNAME, in_column=1)
-        if matching_cell:
+        matching_cell_new_username = INCOME_WORKSHEET.find(NEW_USERNAME, in_column=1)
+        if matching_cell_new_username:
             print(text_style("error","Please choose a different username\n"))
             return False
         else:
-            matching_cell = INCOME_WORKSHEET.find(USERNAME, in_column=1)
-            INCOME_WORKSHEET.update_acell(matching_cell.address, NEW_USERNAME)
+            matching_cell_username = INCOME_WORKSHEET.find(USERNAME, in_column=1)
+            INCOME_WORKSHEET.update_acell(matching_cell_username.address, NEW_USERNAME)
 
             matching_cells = EXPENSES_WORKSHEET.findall(USERNAME, in_column=1)
 
@@ -97,6 +97,7 @@ def change_username(USERNAME,NEW_USERNAME):
                 EXPENSES_WORKSHEET.update_acell(cell.address, NEW_USERNAME)
             return True
     except Exception:
+    
         print(text_style("error","Error changing username: please try again\n"))
         return False
 
