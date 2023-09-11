@@ -24,7 +24,7 @@ ___
 - [User Experience](#user-experience)
 - [Design](#design)
 - [Features](#features)
-- [Technologies](#technologies)
+- [Technologies](#technologies-used)
 - [Testing](#testing)
 - [Bugs](#bugs)
 - [Deployment](#deployment)
