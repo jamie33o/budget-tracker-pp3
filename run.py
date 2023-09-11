@@ -26,7 +26,7 @@ LOGO = """
 
 def main():
     """
-    Print logo.
+    Prints logo and welcome message then calls menu
     """
     slow_print_effect(text_style("success",LOGO),0.005)# ANSI escape codes to change the text color
     slow_print_effect(text_style("info","\nWelcome to Budget Tracker\nBudget Tracker helps you keep track of your budget\n"))
@@ -34,5 +34,5 @@ def main():
         menu()
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':#  checks if the Python script is being run as the main program and not imported as a module
     main()

@@ -16,8 +16,19 @@ def slow_print_effect(text, delay=0.04):
 
 
 def input_validator(expected_type, input_text):
-    """checks if input valid depending on expected type if its 
-    string,date,username or int and returns the input if there is no error"""
+    """checks if input is valid depending on expected type if its 
+    string,date,username or int and returns the input if there is no error
+    
+     Parameters:
+        expected_type (string): the type of text input, letter, number, username, date
+        input_text (string): the text to be validated
+
+    Returns:
+        returns input: The validated input
+       
+    
+    """
+
     input_value = ""
     if expected_type == "letter":
         while True:
@@ -55,15 +66,24 @@ def input_validator(expected_type, input_text):
 
 
 def text_style(type,message):
+    """Changes the style of text color and weight
+   
+    Parameters:
+        type (string): the type of text input, error, success, info
+        message (string): the text to be styled
+
+    Returns:
+        returns styled_text: The text that has been styled
+       
+        """    
     if type == "success":
-        styled_text = f"\033[32m{message}\033[0m"
+        styled_text = f"\033[32m\033[1m{message}\033[0m"
     elif type == "error":
-        styled_text = f"\033[31m{message}\033[0m"
+        styled_text = f"\033[31m\033[1m{message}\033[0m"
     elif type == "info":
         styled_text = f"\033[33m{message}\033[0m"
     elif type == "input":
         styled_text = f"\033[36m\033[1m{message}\033[0m"
-
 
     return styled_text
 
