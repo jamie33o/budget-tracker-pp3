@@ -204,8 +204,15 @@ def tabulate_data(results,keys_list,USERNAME):
         keys_list (list): list of strings from the prices dictionary keys
     
         """    
-    col1 = results
-    col0 = keys_list
+    # list comprehension to remove first element and split the 
+    # second element of results which is the date to just keep the day and store it in a new list
+    new_results = [
+        [inner_list[1].split("-")[2]] + inner_list[2:] if len(inner_list) > 1 else []
+        for inner_list in results
+    ]
+        
+    col1 = new_results
+    col0 = keys_list[1:]
     # Print the table in columns
     table = list(zip(col0, *col1))
 
