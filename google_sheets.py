@@ -217,8 +217,10 @@ def delete_user(USERNAME):
 
         for cell in matching_cells:
             EXPENSES_WORKSHEET.delete_row(cell.row)
+        return True
     except Exception:
         print(text_style("error","Error deleting data please try again"))
+        return False
         
 
 
