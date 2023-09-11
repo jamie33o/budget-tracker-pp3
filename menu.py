@@ -1,7 +1,7 @@
 from tabulate import tabulate  # table prints
-from print_input import * #import all functions from print_input
+from print_input import * # import all functions from print_input
 from questions import questions
-from google_sheets import * #import all google_sheets functions
+from google_sheets import * # import all google_sheets functions
 
 USERNAME = None
 
@@ -51,10 +51,10 @@ def menu():
                     slow_print_effect(text_style("success","Congradultion you are logged in!!!\n"))
                     break
                 else:
-                    print(text_style("error",f"{USERNAME} does not exist... \nType 1 to register\nType 2 to try again\n"))
+                    print(text_style("error",f"{USERNAME} does not exist... \nType 2 to register\nType 1 to try again\n"))
                     # if username is not in the income worksheet the user can type 1 to try again or type 1 to register
                     new_choice = input_validator("number", text_style("input","Please choose an option"))
-                    if new_choice == 1:
+                    if new_choice == 2:
                         choice = new_choice
                     USERNAME = None
             else:
