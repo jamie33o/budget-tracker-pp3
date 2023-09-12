@@ -26,46 +26,49 @@ def input_validator(expected_type, input_text):
     Returns:
         returns input: The validated input
        
-    
     """
 
     input_value = ""
     if expected_type == "letter":
         while True:
-                input_value = input(f"\n {input_text}\n")
-                input_value = input_value.upper()
-                if input_value in ["Y", "N"]:
-                       break  # Exit the loop if the input is a valid string
-                else: 
-                    slow_print_effect(text_style("error","Wrong input! Please enter text."))
+            input_value = input(f"\n {input_text}\n")
+            input_value = input_value.upper()
+            if not input_value in ["Y", "N"]:                
+                slow_print_effect(text_style("error","Wrong input! Please enter text."))
+            else:
+                break  # Exit the loop if the input is a valid string
+
     elif expected_type == "number":
         while True:
-                try:
-                    input_value = int(input(f"\n{input_text}\n"))
-                    break  # Exit the loop if the input is a valid integer
-                except ValueError:
-                    slow_print_effect(text_style("error","Wrong input! Please enter a whole number."))
+            try:
+                input_value = int(input(f"\n{input_text}\n"))
+                break  # Exit the loop if the input is a valid integer
+            except ValueError:
+                slow_print_effect(text_style("error","Wrong input! Please enter a whole number."))
     elif expected_type == "username": 
         while True:
             input_value = input(text_style("input",f"\n{input_text}\n"))
-            if len(input_value) in range(5,11):
-                    break  # Exit the loop if the input is a valid username
-            else: 
+            if not len(input_value) in range(5,11):                
                 slow_print_effect(text_style("error","Username must be between 6 to 11 characters"))
+            else:
+                break  # Exit the loop if the input is a valid username
+
     elif expected_type == "date":
         while True:
             # Define the regular expression pattern for ISO date format (YYYY-MM-DD)
             iso_date_pattern = r'^\d{4}-\d{2}-\d{2}$'
             input_value = input(f"\n{input_text}\n")
             # Check if the input matches the ISO date pattern
-            if re.match(iso_date_pattern, input_value):
+            if not re.match(iso_date_pattern, input_value):
+                slow_print_effect(text_style("error","""
+                                             Wrong input! Please enter date as YYYY-MM-DD."""))
+            else:
                 break  # Input doesn't match the ISO format
-            else: 
-                slow_print_effect(text_style("error","Wrong input! Please enter date as YYYY-MM-DD."))
-    return input_value
+
+        return input_value
 
 
-def text_style(type,message):
+def text_style(msg_type,message):
     """Changes the style of text color and weight
    
     Parameters:
@@ -75,14 +78,14 @@ def text_style(type,message):
     Returns:
         returns styled_text: The text that has been styled
        
-        """    
-    if type == "success":
+        """
+    if msg_type == "success":
         styled_text = f"\033[32m\033[1m{message}\033[0m"
-    elif type == "error":
+    elif msg_type == "error":
         styled_text = f"\033[31m\033[1m{message}\033[0m"
-    elif type == "info":
+    elif msg_type == "info":
         styled_text = f"\033[33m{message}\033[0m"
-    elif type == "input":
+    elif msg_type == "input":
         styled_text = f"\033[36m\033[1m{message}\033[0m"
 
     return styled_text
@@ -93,4 +96,4 @@ def clear_terminal():
     """
     function to clear terminal
     """
-    os.system('cls' if os.name == 'nt' else 'clear') 
+    os.system('cls' if os.name == 'nt' else 'clear')
