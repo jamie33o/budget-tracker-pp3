@@ -1,16 +1,16 @@
 from datetime import datetime
 from print_input import slow_print_effect,input_validator,text_style
 
-def questions(DATE,prices):
+def questions(date,expenses_dict):
     """prints the questions in the dictionary based on user input and then takes the number input"""
     slow_print_effect(text_style("info","Please add your expenses\n"))
 
-    if DATE:
-        current_date = DATE
+    if date:
+        current_date = date
     else:
         current_date = datetime.now().date().isoformat()# turn date object to ISO format
 
-    prices["date"] = current_date
+    expenses_dict["date"] = current_date
 
     questions_dict = { # dictionary with the questions
         "Did you Work Today?": 
@@ -50,14 +50,14 @@ def questions(DATE,prices):
                     slow_print_effect(text_style("info",value))
                     cost = input_validator("number",
                                            text_style("input","Enter the cost as a whole number: "))
-                    prices[key] = cost
+                    expenses_dict[key] = cost
             else:
                 keys = list(dict_value.keys())  # Convert keys to a list
                 key = keys[0]  # Access the first (and only) key in the list
                 slow_print_effect(text_style("info",dict_value[key]))
                 cost = input_validator("number",
                                        text_style("input","Enter the cost as a whole number:" ))
-                prices[key] = cost
+                expenses_dict[key] = cost
 
 
-    return prices
+    return expenses_dict
