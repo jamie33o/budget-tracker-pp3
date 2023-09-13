@@ -4,11 +4,11 @@ I validated both my files using [Code Institute's Python Linter](https://pep8ci.
 
 | File Validated | Image |
 | -------------- | ----- |
-| [run.py](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/jamie33o/budget-tracker-pp3/main/run.py) | ![run.py validation](docs/readme_images/) |
-| [menu.py](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/jamie33o/budget-tracker-pp3/main/menu.py) | ![menu.py validation](docs/readme_images/) |
-| [google_sheets.py](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/jamie33o/budget-tracker-pp3/main/google_sheets.py) | ![google_sheets.py validation](docs/readme_images/) |
-| [questions.py](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/jamie33o/budget-tracker-pp3/main/questions.py) | ![questions.py validation](docs/readme_images/) |
-| [print_input.py](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/jamie33o/budget-tracker-pp3/main/print_input.py) | ![print_input.py validation](docs/readme_images/) |
+| [run.py](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/jamie33o/budget-tracker-pp3/main/run.py) | ![run.py validation](docs/testing-images/ci-linter-run.png) |
+| [menu.py](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/jamie33o/budget-tracker-pp3/main/menu.py) | ![menu.py validation](docs/testing-images/ci-linter-menu.png) |
+| [google_sheets.py](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/jamie33o/budget-tracker-pp3/main/google_sheets.py) | ![google_sheets.py validation](docs/testing-images/ci-linter-google_sheets.png) |
+| [questions.py](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/jamie33o/budget-tracker-pp3/main/questions.py) | ![questions.py validation](docs/testing-images/ci-linter-questions.png) |
+| [print_input.py](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/jamie33o/budget-tracker-pp3/main/print_input.py) | ![print_input.py validation](docs/testing-images/ci-linter-print_input.png) |
 
 
 
