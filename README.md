@@ -92,7 +92,7 @@ As this program was built for the terminal, there wasn't much in terms of design
 
 - __Flowchart__ 
 
-![Flowchart](docs/flowchart/flow-chart.jpg)
+![Flowchart](docs/flowchart/flowchart.jpg)
 
 
 [Back to Table of Contents](#table-of-contents)
