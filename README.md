@@ -4,7 +4,7 @@ Welcome to,
 
 The live link can be found here - [Budget Tracker](https://budget-tracker-pp3-c52ef7ed0210.herokuapp.com/)
 
-![ScreenShot](docs/readme_images/mockup.png)
+![ScreenShot](docs/readme_images/multi-screen-mockup.png.png)
 
 (Developer: Jamie O'Neill)
 
@@ -107,14 +107,14 @@ ___
 
 - On the welcome screen there is a logo and a welcome message then the user is asked to press enter to view the menu
 
-![Welcome Screen/Page](docs/readme_images/logo.png)   
+![Welcome Screen/Page](docs/readme_images/welcome-screen.png)   
 
 
 - Register/Log in menu
 
   - Register/Log menu: The user will be asked to chose an option 1. login 2. register 
 
-  ![Log in](docs/readme_images/login-register-menu.png)   
+  ![Log in](docs/readme_images/login-register-menu.png.png)   
 
 
 - Main menu 
@@ -127,7 +127,7 @@ ___
 
   - If the user chooses change username(option 1) they will be asked to enter there new username 
 
-![Change Username](docs/readme_images/change-username.png)
+![Change Username](docs/readme_images/main-menu-change-username.png)
   
 - Change budget
 
@@ -139,33 +139,33 @@ ___
 
   - If the user chooses Add/update today's expenses(option 3) they will be asked multiple question's about there spending and input an amount for each question
 
-![Add expenses](docs/readme_images/add-expenses-1.png)
+![Add expenses](docs/readme_images/add-expenses.png)
 
 
 - Update expenses by date
 
   - If the user chooses Update expenses by date(option 4) they will be asked to enter the date for which they want to update the expenses
 
-![Add expenses by date](docs/readme_images/add-expenses-2.png)
+![Add expenses by date](docs/readme_images/add-expenses-by-date.png)
 
 
 - View budget overview for previous 7 days from current date
 
   - If the user chooses View budget overview for previous 7 days from current date(option 5) the will be presented with a table showing expenses for the last 7days and also a separate table showing budget , total expenses and savings
     
-![Budget overview](docs/readme_images/budget-overview-current-date.png)
+![Budget overview](docs/readme_images/budget-overview.png)
 
 
 - View budget overview for previous 7 days from date entered
 
   - If the user chooses View budget overview for previous 7 days from date entered(option 6) they wil be asked to enter a date and then given a budget overview 7 days previous from that date
 
-![Budget overview by date](docs/readme_images/budget-overview-by-date-results.png)
+![Budget overview by date](docs/readme_images/budget-overview-by-date.png)
 
 - Delete all data linked to username
 
   - If user chooses Delete all data linked to username(option 7) they will be asked to enter there username and then all data related to there username will be deleted
-![Delete account](docs/readme_images/prize_section.png)
+![Delete account](docs/readme_images/delete-account-success.png)
 
 
 
