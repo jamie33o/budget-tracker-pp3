@@ -65,7 +65,7 @@ def input_validator(expected_type, input_text):
             else:
                 break  # Input doesn't match the ISO format
 
-        return input_value
+    return input_value
 
 
 def text_style(msg_type,message):
