@@ -2,8 +2,17 @@ from datetime import datetime
 from print_input import slow_print_effect,input_validator,text_style
 
 def questions(date,expenses_dict):
-    """prints the questions in the dictionary based on user input and then takes the number input"""
-    slow_print_effect(text_style("info","Please add your expenses\n"))
+    """
+    prints the questions in the dictionary based on the users input and then takes the number input 
+    and adds it to the expenses_dict dictionary
+
+    Parameters:
+        date(string): user inputs a date
+        expenses_dict(dictionary): expenses dictionary
+    Return:
+        returns the updated expenses_dict
+    """
+    slow_print_effect("info","Please add your expenses\n")
 
     if date:
         current_date = date
@@ -40,21 +49,21 @@ def questions(date,expenses_dict):
 
 
     for dict_key, dict_value in questions_dict.items():
-        # goes through question's in the dictionary depending on user input 
-        # and ask for cost as input and adds it to the prices dictionary
-        slow_print_effect(text_style("info", dict_key))
+        # goes through question's in the dictionary depending on user input
+        # and ask for cost as input and adds it to the expenses dictionary
+        slow_print_effect("info", dict_key)
         ans = input_validator("letter",text_style("input","Type Y for yes and N for No (Y/N):"))
         if ans == "Y":
             if dict_value.items():
                 for key, value in dict_value.items():
-                    slow_print_effect(text_style("info",value))
+                    slow_print_effect("info",value)
                     cost = input_validator("number",
                                            text_style("input","Enter the cost as a whole number: "))
                     expenses_dict[key] = cost
             else:
                 keys = list(dict_value.keys())  # Convert keys to a list
                 key = keys[0]  # Access the first (and only) key in the list
-                slow_print_effect(text_style("info",dict_value[key]))
+                slow_print_effect("info",dict_value[key])
                 cost = input_validator("number",
                                        text_style("input","Enter the cost as a whole number:" ))
                 expenses_dict[key] = cost
