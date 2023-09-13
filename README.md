@@ -65,18 +65,18 @@ ___
 
 - __User Stories__
 
-  - Here are the Users stories which can also be found here on the [project kanban board](https://github.com/users/jamie33o/projects/13):
+  - Here are the Users stories which can also be found here on the [project Kanban board](https://github.com/users/jamie33o/projects/13):
 
  - __Players__
 
 1.	As a **user** I can **view the results in the terminal** so that **I can see where I went over budget**
-2.	As a **user** I can **search budget my date** so that **i can compare my weekly budget**
-3.	As a **user** I can **register my username and budget** so that **the game can check if i went over budget**
-4.	As a **user** I can **view a terminal logo** so that **I know that I am on on the rite site**
+2.	As a **user** I can **search budget my date** so that **I can compare my weekly budget**
+3.	As a **user** I can **register my username and budget** so that **the game can check if I went over budget**
+4.	As a **user** I can **view a terminal logo** so that **I know that I am on on the right site**
 5.	As a **user** I can **enter my username** so that **I can get all data related to my username**
-6.	As a **user** I can **login** so that **i can add expenses to my account**
+6.	As a **user** I can **login** so that **I can add expenses to my account**
 7.	As a **user** I can **update my expenses on different dates** so that **I can fix any mistakes**
-8.	As a **user** I can **select delete** so that **I can delete my accout**
+8.	As a **user** I can **select delete** so that **I can delete my account**
 
 
 [Back to Table of Contents](#table-of-contents)
@@ -151,14 +151,14 @@ ___
 
 - View budget overview for previous 7 days from current date
 
-  - If the user chooses View budget overview for previous 7 days from current date(option 5) the will be presented with a table showing expenses for the last 7days and also a seperate table showing budget , total expenses and savings
+  - If the user chooses View budget overview for previous 7 days from current date(option 5) the will be presented with a table showing expenses for the last 7days and also a separate table showing budget , total expenses and savings
     
 ![Budget overview](docs/readme_images/budget-overview-current-date.png)
 
 
-- View budget overview for previos 7 days from date entered
+- View budget overview for previous 7 days from date entered
 
-  - If the user chooses View budget overview for previos 7 days from date entered(option 6) they wil be asked to enter a date and then given a budget overview 7 days previous from that date
+  - If the user chooses View budget overview for previous 7 days from date entered(option 6) they wil be asked to enter a date and then given a budget overview 7 days previous from that date
 
 ![Budget overview by date](docs/readme_images/budget-overview-by-date-results.png)
 
@@ -184,7 +184,7 @@ The following is a list of the technologies I used on this project.
 - [Github](https://github.com/)
     - Github was used to store the project's code after being pushed from Git.
 - [Vscode](https://r.search.yahoo.com/_ylt=Awr.ioz.dfxkmvcVrB8M34lQ;_ylu=Y29sbwNpcjIEcG9zAzEEdnRpZAMEc2VjA3Ny/RV=2/RE=1694295679/RO=10/RU=https%3a%2f%2fcode.visualstudio.com%2f/RK=2/RS=zxlvA43UZMryfKUhyBe_Jk0Z8MQ-)
-    - Gitpod terminal was used to commit my code using Git and push it to Github.
+    - Vscode terminal was used to commit my code using Git and push it to Github.
 - [Git](https://git-scm.com/)
     - Git was used for version control through the vscode terminal.
 
@@ -192,9 +192,9 @@ The following is a list of the technologies I used on this project.
 ### __Imported Libraries and Packages__
 - [tabulate](https://pypi.org/project/tabulate/) was used to create a nice table layout for the data
 - [os](https://docs.python.org/3/library/os.html) was used to create the clear_screen function to enhance user experience and reduce clutter on screen.
-- [re](https://docs.python.org/3/library/re.html) regular expresion was used to check date input
+- [re](https://docs.python.org/3/library/re.html) regular expression was used to check date input
 - [sys](https://docs.python.org/3/library/sys.html) was used to print text slow letter by letter
-- [gspread](https://docs.gspread.org/en/v5.7.0/) was used to link the program to Google Sheets to read and update the leaderboard.
+- [gspread](https://docs.gspread.org/en/v5.7.0/) was used to link the program to Google Sheets to read and update the leader-board.
 
 
 [Back to Table of Contents](#table-of-contents)
@@ -212,8 +212,8 @@ View Testing and Validation [here.](TESTING.md)
 | --- | --- |
 | Bug: Menu not showing after user is finished with an option| Solution: Put menu inside of a while loop so it gets called each time the user is finished with the option they chose |
 | Bug: Menu showing when user deletes account. | Solution: Add if statement in menu function to check if the users username is stored if its not show login/register menu|
-| Bug: User adds expenses but they dont get added to worksheet | Solution: Reviewed the code in questions.py where the questions for adding expenses are and realised the prices dictionary was not being passed to the questions function so i passed the prices dictionary as a parameter |
-| Bug: Budget overview was returning an error | Solution: Reviewed the expenses worksheet and identified that register function was adding the username to expenses worksheet with no other data so i removed the part the register function where it was adding the username as it wasn't needed |
+| Bug: User adds expenses but they don't get added to worksheet | Solution: Reviewed the code in questions.py where the questions for adding expenses are and realised the prices dictionary was not being passed to the questions function so I passed the prices dictionary as a parameter |
+| Bug: Budget overview was returning an error | Solution: Reviewed the expenses worksheet and identified that register function was adding the username to expenses worksheet with no other data so I removed the part the register function where it was adding the username as it wasn't needed |
 | Bug: User could add wrong input and app would stop | Solution: Added input validator function to re-use on all inputs |
 
 ### Unfixed Bugs 
@@ -266,8 +266,6 @@ For Heroku deployment, follow these steps to connect your GitHub repository to t
 The frontend terminal should now be connected and deployed to Heroku.
 
 
-
-
 ### Clone the Repository Code Locally
 - Navigate to the GitHub Repository you want to clone to use locally:
   - Click on the code drop down button
@@ -293,6 +291,5 @@ Here we credit everywhere we have got content for the website and any code that 
 - Flowchart was made using [Flowdia Diagrams](https://play.google.com/store/apps/details?id=com.bezapps.flowdia)
 
 ## __Acknowledgements__
-
-
+I would like to give special thanks to my mentor, [Gareth McGirr](https://github.com/Gareth-McGirr) for his guidance during the development of this project.
 [Back to Table of Contents](#table-of-contents) 
