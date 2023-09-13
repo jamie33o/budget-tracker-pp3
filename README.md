@@ -4,7 +4,7 @@ Welcome to,
 
 The live link can be found here - [Budget Tracker](https://budget-tracker-pp3-c52ef7ed0210.herokuapp.com/)
 
-![ScreenShot](docs/readme_images/multi-screen-mockup.png.png)
+![ScreenShot](docs/readme_images/multi-screen-mockup.png)
 
 (Developer: Jamie O'Neill)
 
