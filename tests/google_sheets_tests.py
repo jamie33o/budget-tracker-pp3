@@ -8,7 +8,7 @@ class TestGoogleSheets(unittest.TestCase):
     Test class for testing functions in google_sheets.py
     """
 
-    @patch('google_sheets.text_style')
+    
     @patch('google_sheets.INCOME_WORKSHEET.col_values')
     @patch('google_sheets.slow_print_effect')
     @patch('google_sheets.input_validator')
@@ -17,8 +17,7 @@ class TestGoogleSheets(unittest.TestCase):
                                mock_append_row,
                                mock_input_validator,
                                mock_slow_print_effect,
-                               mock_col_values,
-                               mock_text_style):
+                               mock_col_values):
 
         """
         Test for register function in google_sheets.py
@@ -33,10 +32,8 @@ class TestGoogleSheets(unittest.TestCase):
 
         # Simulate user input for budget
         mock_input_validator.return_value = 500
-        # Mock text_style to return the second argument
-        mock_text_style.side_effect = lambda style, text: text
         # Mock the slow_print_effect
-        mock_slow_print_effect.side_effect = lambda x: None
+        mock_slow_print_effect.side_effect = lambda x, y=None: None
 
         # Call the register function
         result = register('jamie')
@@ -45,18 +42,13 @@ class TestGoogleSheets(unittest.TestCase):
         self.assertTrue(result)  # Expecting a new user to be added
         mock_col_values.assert_called_once_with(1)
 
-        # Assert that text_style was called twice with specific arguments
-        mock_text_style.assert_has_calls([
-            call('info', "Please add your weekly budget as a whole number!! "),
-            call('input', "Please Enter Your Budget: \n")
-        ], any_order=True)
-
-        mock_slow_print_effect.assert_called_once_with(
-            "Please add your weekly budget as a whole number!! ")
+        mock_slow_print_effect.assert_called_once_with("info",
+            "Please add your weekly budget as a whole number!!")
         mock_input_validator.assert_called_once_with(
                                             "number",
                                             "Please Enter Your Budget: \n")
         mock_append_row.assert_called_once_with(['jamie', 500])
+
 
     @patch('google_sheets.INCOME_WORKSHEET.col_values')
     def test_login(self, mock_col_values):
@@ -75,6 +67,7 @@ class TestGoogleSheets(unittest.TestCase):
         # Assertions
         self.assertTrue(result)  # Expecting user to be logged in
         mock_col_values.assert_called_once_with(1)
+
 
     @patch('google_sheets.text_style')
     @patch('google_sheets.print')
