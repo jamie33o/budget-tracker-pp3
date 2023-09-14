@@ -71,7 +71,7 @@ ___
 
 1.	As a **user** I can **view the results in the terminal** so that **I can see where I went over budget**
 2.	As a **user** I can **search budget my date** so that **I can compare my weekly budget**
-3.	As a **user** I can **register my username and budget** so that **the game can check if I went over budget**
+3.	As a **user** I can **register my username and budget** so that **the app can check if I went over budget**
 4.	As a **user** I can **view a terminal logo** so that **I know that I am on on the right site**
 5.	As a **user** I can **enter my username** so that **I can get all data related to my username**
 6.	As a **user** I can **login** so that **I can add expenses to my account**
@@ -114,7 +114,7 @@ ___
 
   - Register/Log menu: The user will be asked to chose an option 1. login 2. register 
 
-  ![Log in](docs/readme_images/login-register-menu.png.png)   
+  ![Register/Log in menu](docs/readme_images/login-register-menu.png)   
 
 
 - Main menu 
@@ -190,6 +190,7 @@ The following is a list of the technologies I used on this project.
 
 
 ### __Imported Libraries and Packages__
+
 - [tabulate](https://pypi.org/project/tabulate/) was used to create a nice table layout for the data
 - [os](https://docs.python.org/3/library/os.html) was used to create the clear_screen function to enhance user experience and reduce clutter on screen.
 - [re](https://docs.python.org/3/library/re.html) regular expression was used to check date input
@@ -218,7 +219,7 @@ View Testing and Validation [here.](TESTING.md)
 
 ### Unfixed Bugs 
 
-- No known unfixed bugs
+- User can press enter multiple times and error message will print for the amount of times the user presses enter when using slow print function
 
 
 [Back to Table of Contents](#table-of-contents)

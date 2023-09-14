@@ -102,5 +102,5 @@ As a **user** I can **select delete** so that **I can delete my account**
 | Add expenses by date | Input "enter correct input" | Notify the user that the expenses updated | As expected | PASS |![add expenses by date](docs/testing-images/add-expenses-success.png)|
 | Main Menu | Input "5" | User is presented with there budget overview | As expected | PASS |![budget overview](docs/readme_images/budget-overview.png)|
 | Main Menu | Input "6" | User is asked to enter a date | As expected | PASS |![budget overview by date](docs/readme_images/budget-overview-by-date.png)|
-| Main Menu | Input "7" | User is asked to enter username | As expected | PASS |![delete account](docs/readme_images/delete-account-success.png)|
+| Main Menu | Input "7" | Notify user of success | As expected | PASS |![delete account](docs/readme_images/delete-account-success.png)|
 | Delete account | Input "Wrong username" | Notify user that they entered wrong username | As expected | PASS |![delete account](docs/testing-images/delete-account-wrong-username.png)|
