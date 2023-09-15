@@ -104,3 +104,8 @@ As a **user** I can **select delete** so that **I can delete my account**
 | Main Menu | Input "6" | User is asked to enter a date | As expected | PASS |![budget overview by date](docs/readme_images/budget-overview-by-date.png)|
 | Main Menu | Input "7" | Notify user of success | As expected | PASS |![delete account](docs/readme_images/delete-account-success.png)|
 | Delete account | Input "Wrong username" | Notify user that they entered wrong username | As expected | PASS |![delete account](docs/testing-images/delete-account-wrong-username.png)|
+
+
+### Automated Tests(unit tests)
+
+Unit tests can be found here [Unit tests](tests/google_sheets_tests.py)
