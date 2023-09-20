@@ -1,4 +1,5 @@
 from tabulate import tabulate  # table prints
+from datetime import datetime
 from print_input import (
      text_style,
      input_validator,
@@ -93,7 +94,7 @@ def menu(username):
         if check_expenses_added(username):
             results = budget_overview(username, None)
             tabulate_data(results, keys_list, username)
-            update_single_expense(keys_list,results,expenses_dict)
+            update_single_expense(keys_list,results,expenses_dict,False)
         else:
             update_user_expenses(expenses_dict, False)
     elif choice == 4:
@@ -293,7 +294,7 @@ def view_budget_overview_by_date(username, keys_list, search_by_date_bool,expens
         results = budget_overview(username, None)
     if results:
         tabulate_data(results, keys_list, username)
-        update_single_expense(keys_list,results,expenses_dict)
+        update_single_expense(keys_list,results,expenses_dict,True)
     else:
         slow_print_effect("error",
                           "Sorry we have no expenses before that date!!!\n")
@@ -324,7 +325,7 @@ def delete_account(username):
     return username
 
 
-def update_single_expense(keys_list,results,expenses_dict):
+def update_single_expense(keys_list,results,expenses_dict,date_bool):
     """
     Asks the user if they want to update a single expense then shows the user a list of
     the expenses and asks the user to choose which expense then asks the user to enter
@@ -336,42 +337,49 @@ def update_single_expense(keys_list,results,expenses_dict):
         expenses_dict(dictionary):  dictionary matching expenses worksheet columns
     """
 
-    ans = input_validator("letter",
+
+    if date_bool:
+        ans = input_validator("letter",
                             "Would you like to update any of these expenses?"
                             "\nY for yes and N for no (Y/N)")
-    if ans == "Y":
-        date = input_validator("date",
+        if ans == "Y":
+            date = input_validator("date",
                                 "Please enter date of expense you want to update?"
                                 "\nPlease enter the date format as YYYY-MM-DD")
+        else:
+            return
+    else:
+        date =  datetime.now().date().isoformat()
         # Assuming 'expenses' is a list of rows, and you want to update a 
         # row based on the 'date' condition
-        expenses_row_to_update = [result for result in results if result[1] == date]
-        if expenses_row_to_update:
-            col0 = ["1","2","3","4","5","6","7","8","9","10"]
-            col1 = keys_list[2:]
-            # Print the table in columns
-            table = list(zip(col0, col1))
+    expenses_row_to_update = [result for result in results if result[1] == date]
+    if expenses_row_to_update:
+        col0 = ["1","2","3","4","5","6","7","8","9","10"]
+        col1 = keys_list[2:]
+        # Print the table in columns
+        table = list(zip(col0, col1))
 
-            # table format for column layout
-            table_format = 'fancy_outline'
+        # table format for column layout
+        table_format = 'fancy_outline'
 
-            # Print the table
-            print(tabulate(table, tablefmt=table_format))
-            while True:
-                expense_choice = input_validator("number",
-                                            "Please choose the expense you want to update?")
-                if str(expense_choice) in col0:
-                    amount = input_validator("number",
-                                            "Enter new amount for "
-                                            f"{keys_list[expense_choice+1]} on {date}")
-                    # Update the dictionary with values from the row
-                    for i, key in enumerate(expenses_dict.keys()):
-                        expenses_dict[key] = expenses_row_to_update[0][i]
-                    expenses_dict[keys_list[expense_choice+1]] = amount
-                    if add_expenses(expenses_dict):
-                        slow_print_effect("success","Expense updated!!\n")
-                    break
-                print("Enter a number between 1 and 10")
-                
-        else:
-            print(f"No rows matching this date: {date}")
+        # Print the table
+        print(tabulate(table, tablefmt=table_format))
+        while True:
+            expense_choice = input_validator("number",
+                                                "Please choose the expense " 
+                                                f"you want to update for {date}?")
+            if str(expense_choice) in col0:
+                amount = input_validator("number",
+                                        "Enter new amount for "
+                                        f"{keys_list[expense_choice+1]} on {date}")
+                # Update the dictionary with values from the row
+                for i, key in enumerate(expenses_dict.keys()):
+                    expenses_dict[key] = expenses_row_to_update[0][i]
+                expenses_dict[keys_list[expense_choice+1]] = amount
+                if add_expenses(expenses_dict):
+                    slow_print_effect("success","Expense updated!!\n")
+                break
+            slow_print_effect("error","Enter a number between 1 and 10")
+
+    else:
+        print(f"No rows matching this date: {date}")
