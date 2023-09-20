@@ -9,10 +9,10 @@ class TestGoogleSheets(unittest.TestCase):
     """
 
     
-    @patch('google_sheets.INCOME_WORKSHEET.col_values')
-    @patch('google_sheets.slow_print_effect')
-    @patch('google_sheets.input_validator')
-    @patch('google_sheets.INCOME_WORKSHEET.append_row')
+    @patch('python.google_sheets.INCOME_WORKSHEET.col_values')
+    @patch('python.google_sheets.slow_print_effect')
+    @patch('python.google_sheets.input_validator')
+    @patch('python.google_sheets.INCOME_WORKSHEET.append_row')
     def test_register_new_user(self,
                                mock_append_row,
                                mock_input_validator,
@@ -50,7 +50,7 @@ class TestGoogleSheets(unittest.TestCase):
         mock_append_row.assert_called_once_with(['jamie', 500])
 
 
-    @patch('google_sheets.INCOME_WORKSHEET.col_values')
+    @patch('python.google_sheets.INCOME_WORKSHEET.col_values')
     def test_login(self, mock_col_values):
         """
         Test for login function in google_sheets.py
@@ -69,9 +69,9 @@ class TestGoogleSheets(unittest.TestCase):
         mock_col_values.assert_called_once_with(1)
 
 
-    @patch('google_sheets.text_style')
-    @patch('google_sheets.print')
-    @patch('google_sheets.INCOME_WORKSHEET.find')
+    @patch('python.google_sheets.text_style')
+    @patch('python.google_sheets.print')
+    @patch('python.google_sheets.INCOME_WORKSHEET.find')
     def test_change_username_failed(self,
                                     mock_find_cell,
                                     mock_print,
@@ -102,10 +102,10 @@ class TestGoogleSheets(unittest.TestCase):
                 "Please choose a different username\n")
 
     # patch function calls
-    @patch('google_sheets.EXPENSES_WORKSHEET.update_acell')
-    @patch('google_sheets.EXPENSES_WORKSHEET.findall')
-    @patch('google_sheets.INCOME_WORKSHEET.update_acell')
-    @patch('google_sheets.INCOME_WORKSHEET.find')
+    @patch('python.google_sheets.EXPENSES_WORKSHEET.update_acell')
+    @patch('python.google_sheets.EXPENSES_WORKSHEET.findall')
+    @patch('python.google_sheets.INCOME_WORKSHEET.update_acell')
+    @patch('python.google_sheets.INCOME_WORKSHEET.find')
     def test_change_username_success(self,
                                      mock_find_cell,
                                      mock_income_update_acell,
