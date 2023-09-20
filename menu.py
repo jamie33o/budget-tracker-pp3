@@ -93,9 +93,9 @@ def menu(username):
     elif choice == 4:
         update_user_expenses(expenses_dict, True)
     elif choice == 5:
-        view_budget_overview_by_date(username, keys_list, False)
+        view_budget_overview_by_date(username, keys_list, False,expenses_dict)
     elif choice == 6:
-        view_budget_overview_by_date(username, keys_list, True)
+        view_budget_overview_by_date(username, keys_list, True,expenses_dict)
     elif choice == 7:
         username = delete_account(username)
     else:
@@ -200,7 +200,7 @@ def login_or_register(expenses_dict, username):
             logged_in = login(username)
             if logged_in:
                 slow_print_effect("success",
-                                  "Congratulations you"
+                                  "Congratulations you "
                                   "are logged in!!!\n")
                 return username
 
@@ -252,7 +252,7 @@ def update_user_expenses(expenses_dict, update_by_date_bool):
 
     if update_by_date_bool:
         date = input_validator("date",
-                               "Please enter the date you want"
+                               "Please enter the date you want "
                                "to update, format: YYYY-MM-DD")
         updated_expenses_dict = questions(date, expenses_dict)
     else:
@@ -262,7 +262,7 @@ def update_user_expenses(expenses_dict, update_by_date_bool):
         slow_print_effect("success", "Expenses Updated!!!!\n")
 
 
-def view_budget_overview_by_date(username, keys_list, search_by_date_bool):
+def view_budget_overview_by_date(username, keys_list, search_by_date_bool,expenses_dict):
     """
     if search_by_date_bool is true the user is asked to enter a date
     and the expenses are retrieved for the week before that date
@@ -278,7 +278,7 @@ def view_budget_overview_by_date(username, keys_list, search_by_date_bool):
     """
     if search_by_date_bool:
         date = input_validator("date",
-                               "Please specify the end date of"
+                               "Please specify the end date of "
                                "the desired budget week ,"
                                "\nPlease enter the date format as YYYY-MM-DD")
 
@@ -287,6 +287,7 @@ def view_budget_overview_by_date(username, keys_list, search_by_date_bool):
         results = budget_overview(username, None)
     if results:
         tabulate_data(results, keys_list, username)
+        update_single_expense(keys_list,results,expenses_dict)
     else:
         slow_print_effect("error",
                           "Sorry we have no expenses before that date!!!\n")
@@ -315,3 +316,55 @@ def delete_account(username):
 
     slow_print_effect("error", "Wrong Username!!!\n")
     return username
+
+
+def update_single_expense(keys_list,results,expenses_dict):
+    """
+    Asks the user if they want to update a single expense then shows the user a list of
+    the expenses and asks the user to choose which expense then asks the user to enter
+    the date and amount to be updated with
+
+    Parameters:
+        keys_list (list): list of keys from expenses dictionary
+        results(list): list of rows from the expenses worksheet
+        expenses_dict(dictionary):  dictionary matching expenses worksheet columns
+    """
+
+    ans = input_validator("letter",
+                            "Would you like to update any of these expenses?"
+                            "\nY for yes and N for no (Y/N)")
+    if ans == "Y":
+        date = input_validator("date",
+                                "Please enter date of expense you want to update?"
+                                "\nPlease enter the date format as YYYY-MM-DD")
+        # Assuming 'expenses' is a list of rows, and you want to update a 
+        # row based on the 'date' condition
+        expenses_row_to_update = [result for result in results if result[1] == date]
+        if expenses_row_to_update:
+            col0 = ["1","2","3","4","5","6","7","8","9","10"]
+            col1 = keys_list[2:]
+            # Print the table in columns
+            table = list(zip(col0, col1))
+
+            # table format for column layout
+            table_format = 'fancy_outline'
+
+            # Print the table
+            print(tabulate(table, tablefmt=table_format))
+            expense_choice = input_validator("number",
+                                            "Please choose the expense you want to update?")
+            while True:
+                if str(expense_choice) in col0:
+                    amount = input_validator("number",
+                                            "Enter new amount for "
+                                            f"{keys_list[expense_choice+1]} on {date}")
+                    # Update the dictionary with values from the row
+                    for i, key in enumerate(expenses_dict.keys()):
+                        expenses_dict[key] = expenses_row_to_update[0][i]
+                    expenses_dict[keys_list[expense_choice+1]] = amount
+                    add_expenses(expenses_dict)
+                    break
+                print("Enter a number between 1 and 10")
+
+        else:
+            print(f"No rows matching this date: {date}")
