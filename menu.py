@@ -351,9 +351,9 @@ def update_single_expense(keys_list,results,expenses_dict):
 
             # Print the table
             print(tabulate(table, tablefmt=table_format))
-            expense_choice = input_validator("number",
-                                            "Please choose the expense you want to update?")
             while True:
+                expense_choice = input_validator("number",
+                                            "Please choose the expense you want to update?")
                 if str(expense_choice) in col0:
                     amount = input_validator("number",
                                             "Enter new amount for "
@@ -363,8 +363,9 @@ def update_single_expense(keys_list,results,expenses_dict):
                         expenses_dict[key] = expenses_row_to_update[0][i]
                     expenses_dict[keys_list[expense_choice+1]] = amount
                     if add_expenses(expenses_dict):
-                        slow_print_effect("success","Expense updated!!")
+                        slow_print_effect("success","Expense updated!!\n")
                     break
                 print("Enter a number between 1 and 10")
+                
         else:
             print(f"No rows matching this date: {date}")
