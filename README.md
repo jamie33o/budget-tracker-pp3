@@ -137,8 +137,9 @@ ___
 
 - Add/update today's expenses
 
-  - If the user chooses Add/update today's expenses(option 3) they will be asked multiple question's about there spending and input an amount for each question
-
+  - If the user chooses Add/update today's expenses(option 3) if the user has already expenses added for the current date they will be shown the budget overview and given the option to update a single expense otherwise they will be asked multiple question's about there spending and input an amount for each expense
+  
+![Add expenses](docs/readme_images/option3-new.png)
 ![Add expenses](docs/readme_images/add-expenses.png)
 
 
