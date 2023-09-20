@@ -65,7 +65,7 @@ ___
 
 - __User Stories__
 
-  - Here are the Users stories which can also be found here on the [project Kanban board](https://github.com/users/jamie33o/projects/13):
+  - Here are the Users stories which can also be found here on the [project Kanban board](https://github.com/users/jamie33o/projects/13) or here in [issues](https://github.com/jamie33o/budget-tracker-pp3/issues):
 
  - __Players__
 
