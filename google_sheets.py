@@ -247,3 +247,27 @@ def get_budget(username):
     except Exception:
         print(text_style("error", "Error retrieving budget"))
         return False
+
+def check_expenses_added(username):
+    """
+    checks if expenses have been added for the curent date
+    
+    Parameters:
+            USERNAME (string): users username
+
+    Returns:
+            True: if expenses exist for current date
+            False: if expenses do not exist for current date
+    """
+   
+    user_rows = []
+    chosen_date = datetime.now().date().isoformat()
+
+    matching_cells = EXPENSES_WORKSHEET.findall(username, in_column=1)
+    for cell in matching_cells:
+        user_rows.append(EXPENSES_WORKSHEET.row_values(cell.row))
+
+    for row in user_rows:
+        if chosen_date == row[1]:
+            return True
+    return False
