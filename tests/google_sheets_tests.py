@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, call, Mock
-from google_sheets import login, register, change_username
+from python.google_sheets import login, register, change_username
 
 
 class TestGoogleSheets(unittest.TestCase):

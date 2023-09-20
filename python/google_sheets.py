@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 import gspread
 from google.oauth2.service_account import Credentials
-from print_input import input_validator, slow_print_effect, text_style
+from python.print_input import input_validator, slow_print_effect, text_style
 
 
 # sets what im authorized to use with google cloud services

@@ -1,5 +1,5 @@
 from datetime import datetime
-from print_input import slow_print_effect,input_validator,text_style
+from python.print_input import slow_print_effect,input_validator,text_style
 
 def questions(date,expenses_dict):
     """

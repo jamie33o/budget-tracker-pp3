@@ -1,6 +1,6 @@
 import pyfiglet
-from print_input import slow_print_effect
-from menu import menu
+from python.print_input import slow_print_effect
+from python.menu import menu
 
 
 def main():
