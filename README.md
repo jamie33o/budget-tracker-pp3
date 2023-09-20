@@ -42,7 +42,7 @@ The goals of this website include:
 
   - Expense Tracking: Users want to easily and accurately track their daily expenses, including purchases, bills, and other financial transactions. They aim to gain a clear understanding of where their money is going.
 
-  - Budget Management: Users aim to set and manage budgets for different spending categories, such as groceries, entertainment, and utilities. They want to stay within their budget limits and receive alerts when approaching or exceeding them.
+  - Budget Management: Users aim to set and manage budgets for different spending categories, such as groceries and utilities.
 
   - Savings and Investment: Users may have specific savings or investment goals, such as saving for retirement, a down payment on a house, or a child's education. They want to track their progress toward these goals and make adjustments as needed.
 
@@ -50,7 +50,7 @@ The goals of this website include:
 
 - __Site Owner Goals__
 
-  - Create an Application that Helps Users Track Their Budget and Get Better at Budgeting
+  - Create an Application that Helps Users Track Their Budget.
   - Create an easy to use website and user interface.
 
   [Back to Table of Contents](#table-of-contents)
@@ -70,7 +70,7 @@ ___
  - __Players__
 
 1.	As a **user** I can **view the results in the terminal** so that **I can see where I went over budget**
-2.	As a **user** I can **search budget my date** so that **I can compare my weekly budget**
+2.	As a **user** I can **view my budget by date** so that **I can compare my weekly budget**
 3.	As a **user** I can **register my username and budget** so that **the app can check if I went over budget**
 4.	As a **user** I can **view a terminal logo** so that **I know that I am on on the right site**
 5.	As a **user** I can **enter my username** so that **I can get all data related to my username**
@@ -151,14 +151,14 @@ ___
 
 - View budget overview for previous 7 days from current date
 
-  - If the user chooses View budget overview for previous 7 days from current date(option 5) the will be presented with a table showing expenses for the last 7days and also a separate table showing budget , total expenses and savings
+  - If the user chooses View budget overview for previous 7 days from current date(option 5) they will be presented with a table showing expenses for the last 7 days and also a separate table showing budget , total expenses and savings
     
 ![Budget overview](docs/readme_images/budget-overview.png)
 
 
-- View budget overview for previous 7 days from date entered
+- View budget overview for previous 7 days from the date entered
 
-  - If the user chooses View budget overview for previous 7 days from date entered(option 6) they wil be asked to enter a date and then given a budget overview 7 days previous from that date
+  - If the user chooses View budget overview for previous 7 days from date entered(option 6) they will be asked to enter a date and then given a budget overview 7 days previous from that date
 
 ![Budget overview by date](docs/readme_images/budget-overview-by-date.png)
 

@@ -1,6 +1,6 @@
 ### Python Validation
 
-I validated both my files using [Code Institute's Python Linter](https://pep8ci.herokuapp.com/) and was met with no errors.
+I validated all my files using [Code Institute's Python Linter](https://pep8ci.herokuapp.com/) and was met with no errors.
 
 | File Validated | Image |
 | -------------- | ----- |
@@ -24,7 +24,7 @@ As a **user** I can **view the results in the terminal** so that **I can see whe
 
 
 User Story 2:
-As a **user** I can **search budget my date** so that **I can compare my weekly budget**
+As a **user** I can **view my budget by date** so that **I can compare my weekly budget**
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
