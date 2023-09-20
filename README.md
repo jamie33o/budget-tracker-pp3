@@ -156,6 +156,14 @@ ___
 ![Budget overview](docs/readme_images/budget-overview.png)
 
 
+- update single expense
+
+  - After the user selects view budget overview they are presented with an option to update a single 
+  expense, if they type Y for yes they will be giving the options then asked to enter the new expense amount
+
+![Add expenses](docs/readme_images/update-single-expense-q.png)
+![Add expenses](docs/readme_images/update-single-expense-3.png)
+
 - View budget overview for previous 7 days from the date entered
 
   - If the user chooses View budget overview for previous 7 days from date entered(option 6) they will be asked to enter a date and then given a budget overview 7 days previous from that date

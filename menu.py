@@ -362,9 +362,9 @@ def update_single_expense(keys_list,results,expenses_dict):
                     for i, key in enumerate(expenses_dict.keys()):
                         expenses_dict[key] = expenses_row_to_update[0][i]
                     expenses_dict[keys_list[expense_choice+1]] = amount
-                    add_expenses(expenses_dict)
+                    if add_expenses(expenses_dict):
+                        slow_print_effect("success","Expense updated!!")
                     break
                 print("Enter a number between 1 and 10")
-
         else:
             print(f"No rows matching this date: {date}")
