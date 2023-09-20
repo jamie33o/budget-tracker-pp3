@@ -52,20 +52,18 @@ def questions(date,expenses_dict):
         # goes through question's in the dictionary depending on user input
         # and ask for cost as input and adds it to the expenses dictionary
         slow_print_effect("info", dict_key)
-        ans = input_validator("letter",text_style("input","Type Y for yes and N for No (Y/N):"))
+        ans = input_validator("letter","Type Y for yes and N for No (Y/N):")
         if ans == "Y":
             if dict_value.items():
                 for key, value in dict_value.items():
                     slow_print_effect("info",value)
-                    cost = input_validator("number",
-                                           text_style("input","Enter the cost as a whole number: "))
+                    cost = input_validator("number","Enter the cost as a whole number: ")
                     expenses_dict[key] = cost
             else:
                 keys = list(dict_value.keys())  # Convert keys to a list
                 key = keys[0]  # Access the first (and only) key in the list
                 slow_print_effect("info",dict_value[key])
-                cost = input_validator("number",
-                                       text_style("input","Enter the cost as a whole number:" ))
+                cost = input_validator("number","Enter the cost as a whole number: " )
                 expenses_dict[key] = cost
 
 
