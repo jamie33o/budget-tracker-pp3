@@ -13,7 +13,8 @@ from google_sheets import (
     budget_overview,
     change_budget,
     change_username,
-    add_expenses
+    add_expenses,
+    check_expenses_added
 )
 
 
@@ -89,7 +90,12 @@ def menu(username):
             slow_print_effect("success",
                               "Budget Updated!!!!\n")
     elif choice == 3:
-        update_user_expenses(expenses_dict, False)
+        if check_expenses_added(username):
+            results = budget_overview(username, None)
+            tabulate_data(results, keys_list, username)
+            update_single_expense(keys_list,results,expenses_dict)
+        else:
+            update_user_expenses(expenses_dict, False)
     elif choice == 4:
         update_user_expenses(expenses_dict, True)
     elif choice == 5:
